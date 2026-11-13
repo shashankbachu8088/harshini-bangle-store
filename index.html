@@ -1,0 +1,121 @@
+.form label{font-size:13px;font-weight:500}
+.row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.row img{width:56px;height:56px;object-fit:cover;border-radius:10px}
+.row div{flex:1;font-size:14px}
+.ed,.del{border:0;padding:6px 14px;border-radius:14px;cursor:pointer;font:500 13px Poppins,sans-serif}
+.ed{background:#e7defc;color:#5b2bb8}
+.del{background:#fde4ee;color:#b3125e}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.rings{height:200px}.rings i{height:170px;width:80px;margin-left:-45px}}
+:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+</style></head><body>
+<header class="top">
+ <a class="logo" href="/"><span class="mark">&#10047;</span><span><b>{{ shop }}</b><small>{{ tagline }}</small></span></a>
+ <nav><a href="/">Home</a><a href="/#categories">Shop</a><a href="/#size">Size Finder</a><a href="#contact">Contact</a>{% if is_admin %}<a href="/admin">Admin Panel</a>{% endif %}</nav>
+ <a class="btn" href="{{ wa('Hello, I have a question about your bangles') }}">Chat on WhatsApp</a>
+</header>
+{% block body %}{% endblock %}
+<footer id="contact"><div class="wrap"><div class="fgrid">
+  <div><h3>Quick Links</h3><p><a href="/">Home</a></p><p><a href="/#categories">Shop</a></p><p><a href="/#size">Size Finder</a></p></div>
+  <div><h3>Contact Us</h3><p>{{ email }}</p><p>{{ city }}</p><p><a href="{{ wa('Hello') }}">Message on WhatsApp</a></p></div>
+  <div><p class="quote">Because every hand deserves the perfect bangle.</p></div>
+ </div></div>
+ <div class="copy">&copy; {{ shop }}. All rights reserved.</div>
+</footer></body></html>"""
+
+T["home.html"] = """{% extends "base.html" %}{% block body %}
+<div class="hero">
+ <div class="glass"><b>Welcome to</b><h1>{{ shop }}</h1>
+  <p><b>Traditional Elegance &amp; Modern Style</b><br>Beautiful bangles for every mood, every outfit, and every special moment.</p>
+  <a class="btn" href="#categories">Shop now</a></div>
+ <div class="rings" aria-hidden="true">
+  <i style="border-color:#e91e8c"></i><i style="border-color:#f4b400"></i><i style="border-color:#0aa6c9"></i>
+  <i style="border-color:#2e9e4f"></i><i style="border-color:#7b3fe4"></i><i style="border-color:#e91e8c"></i></div>
+</div>
+<div class="wrap">
+ <section id="categories"><h2>Shop by category</h2><p class="sub">Find your perfect style</p>
+  {% if not cats %}<p class="sub">Categories will appear here soon.</p>{% endif %}
+  <div class="grid">{% for c in cats %}
+   <a class="cat" href="{{ url_for('category', cid=c.id) }}">
+    <div class="cat-img" {% if c.image %}style="background-image:url('{{ url_for('uploads', name=c.image) }}')"{% endif %}></div>
+    <div class="cat-txt"><b>{{ c.name }}</b><span>{{ c.tagline or '' }}</span></div></a>{% endfor %}</div></section>
+ <section id="size"><div class="size"><div style="flex:1;min-width:260px">
+   <h2>Not sure about your bangle size?</h2>
+   <p class="sub">Send us a photo of your hand on WhatsApp and we will suggest the right size.</p>
+   <a class="btn" href="{{ wa('Hello, please help me find my bangle size') }}">Ask for size help</a></div>
+  <div><b>Recommended sizes</b><div class="chips"><span>2-4 <small>Small</small></span><span>2-6 <small>Medium</small></span><span>2-8 <small>Large</small></span><span>2-10 <small>Extra large</small></span></div></div></div></section>
+ {% if featured %}<section><h2>Featured designs</h2><p class="sub">Our most loved designs</p>
+  <div class="grid">{% for p in featured %}
+   <div class="card"><div class="card-img" style="background-image:url('{{ url_for('uploads', name=p.image) }}')"></div>
+    <div class="card-txt"><b>{{ p.name }}</b>{% if p.price %}<div class="price">&#8377; {{ p.price }}</div>{% endif %}
+    <a class="btn" href="{{ wa('Hello, I want to order: ' ~ p.name) }}">Order on WhatsApp</a></div></div>{% endfor %}</div></section>{% endif %}
+</div>{% endblock %}"""
+
+T["category.html"] = """{% extends "base.html" %}{% block body %}
+<div class="wrap"><section><h2>{{ cat.name }}</h2><p class="sub">{{ cat.tagline or '' }}</p>
+ {% if subs %}<div class="pills"><a href="{{ url_for('category', cid=cat.id) }}" class="{{ '' if sub else 'on' }}">All</a>
+  {% for s in subs %}<a href="{{ url_for('category', cid=cat.id, sub=s.id) }}" class="{{ 'on' if sub == s.id else '' }}">{{ s.name }}</a>{% endfor %}</div>{% endif %}
+ {% if not items %}<p class="sub">No designs here yet. Please check back soon.</p>{% endif %}
+ <div class="grid">{% for p in items %}
+  <div class="card"><div class="card-img" style="background-image:url('{{ url_for('uploads', name=p.image) }}')"></div>
+   <div class="card-txt"><b>{{ p.name }}</b>{% if p.price %}<div class="price">&#8377; {{ p.price }}</div>{% endif %}
+   <a class="btn" href="{{ wa('Hello, I want to order: ' ~ p.name) }}">Order on WhatsApp</a></div></div>{% endfor %}</div>
+</section></div>{% endblock %}"""
+
+T["admin.html"] = """{% extends "base.html" %}{% block body %}
+<div class="wrap"><section><h2>Admin Panel</h2>
+{% if login %}
+ <form class="form" method="post" style="max-width:360px"><label>Password</label>
+  <input type="password" name="password" autofocus>
+  {% if error %}<p style="color:#b3125e">Wrong password. Try again.</p>{% endif %}
+  <button class="btn">Log in</button></form>
+{% else %}
+ <p><a href="/admin/logout"><b>Log out</b></a></p>
+ <form class="form" method="post" action="/admin/category" enctype="multipart/form-data"><b>1. Create a section</b><br>
+  <label>Section name</label><input name="name" required>
+  <label>Short line under the name (optional)</label><input name="tagline">
+  <label>Put it inside</label><select name="parent_id"><option value="">Main section</option>
+   {% for c in cats if not c.parent_id %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}</select>
+  <label>Cover photo (optional)</label><input type="file" name="image" accept="image/*">
+  <button class="btn">Create section</button></form>
+ <form class="form" method="post" action="/admin/product" enctype="multipart/form-data"><b>2. Upload photos</b><br>
+  <label>Section</label><select name="category_id" required>
+   {% for c in cats %}<option value="{{ c.id }}">{{ (c.parent ~ ' > ') if c.parent else '' }}{{ c.name }}</option>{% endfor %}</select>
+  <label>Item name</label><input name="name" required>
+  <label>Price in rupees</label><input type="number" name="price" min="0" value="0">
+  <label>Photos (you can choose many)</label><input type="file" name="photos" accept="image/*" multiple required>
+  <label><input type="checkbox" name="featured" style="width:auto"> Show on the home page</label><br><br>
+  <button class="btn">Save photos</button></form>
+ <h2>Sections</h2>
+ {% for c in cats %}<div class="row"><div>{{ (c.parent ~ ' > ') if c.parent else '' }}<b>{{ c.name }}</b></div>
+  <a class="ed" href="/admin/edit-category/{{ c.id }}">Edit</a>
+  <form method="post" action="/admin/delete-category/{{ c.id }}" onsubmit="return confirm('Delete this section?')"><button class="del">Delete</button></form></div>{% endfor %}
+ <p class="sub">A section can be deleted only when it has no photos and no sub-sections.</p>
+ <h2>Photos</h2>
+ {% for p in items %}<div class="row"><img src="{{ url_for('uploads', name=p.image) }}" alt="">
+  <div><b>{{ p.name }}</b><br>{{ p.cat }} &middot; &#8377; {{ p.price }}{% if p.featured %} &middot; On home page{% endif %}</div>
+  <a class="ed" href="/admin/edit-product/{{ p.id }}">Edit</a>
+  <form method="post" action="/admin/delete-product/{{ p.id }}" onsubmit="return confirm('Delete this photo?')"><button class="del">Delete</button></form></div>{% endfor %}
+{% endif %}</section></div>{% endblock %}"""
+
+T["edit.html"] = """{% extends "base.html" %}{% block body %}
+<div class="wrap"><section><h2>Edit {{ kind }}</h2>
+<form class="form" method="post" enctype="multipart/form-data" style="max-width:520px">
+ <label>Name</label><input name="name" value="{{ item.name }}" required>
+ {% if kind == 'category' %}
+  <label>Short line</label><input name="tagline" value="{{ item.tagline or '' }}">
+  <label>Put it inside</label><select name="parent_id"><option value="">Main section</option>
+   {% for c in parents %}<option value="{{ c.id }}" {% if c.id == item.parent_id %}selected{% endif %}>{{ c.name }}</option>{% endfor %}</select>
+  {% if item.image %}<img src="{{ url_for('uploads', name=item.image) }}" width="120" alt=""><br>{% endif %}
+  <label>New cover photo (optional)</label><input type="file" name="image" accept="image/*">
+ {% else %}
+  <label>Price in rupees</label><input type="number" name="price" min="0" value="{{ item.price }}">
+  <label>Section</label><select name="category_id">
+   {% for c in cats %}<option value="{{ c.id }}" {% if c.id == item.category_id %}selected{% endif %}>{{ (c.parent ~ ' > ') if c.parent else '' }}{{ c.name }}</option>{% endfor %}</select>
+  <label><input type="checkbox" name="featured" style="width:auto" {% if item.featured %}checked{% endif %}> Show on the home page</label><br><br>
+  <img src="{{ url_for('uploads', name=item.image) }}" width="160" alt=""><br>
+  <label>Replace photo (optional)</label><input type="file" name="photo" accept="image/*">
+ {% endif %}
+ <button class="btn">Save changes</button> &nbsp; <a href="/admin">Cancel</a>
+</form></section></div>{% endblock %}"""
+
+app.jinja_loader = DictLoader(T)
