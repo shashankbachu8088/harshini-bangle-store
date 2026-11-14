@@ -3,1175 +3,1355 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="theme-color" content="#f8e9f2">
 <title>Harshini Bangle's Store</title>
 
-<style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-/* GENERAL DESIGN */
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+ --pink:#f5dce9;
+ --rose:#b85f86;
+ --deep:#69334f;
+ --gold:#c59a55;
+ --ink:#392b35;
+ --glass:rgba(255,255,255,.57);
+}
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+ box-sizing:border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #fffaf7;
-    color: #422536;
+ margin:0;
+ color:var(--ink);
+ font-family:'DM Sans',sans-serif;
+ background:
+ radial-gradient(circle at 12% 10%,#fff 0,transparent 26%),
+ radial-gradient(circle at 90% 18%,#f4cddd 0,transparent 28%),
+ linear-gradient(135deg,#fff8fb,#f5e6ef 48%,#e9e8f7);
+ min-height:100vh;
+ background-attachment:fixed;
 }
 
-:root {
-    --pink: #b83268;
-    --dark: #681738;
-    --gold: #c69b48;
-    --light: #fce8ef;
+button,input,textarea,select {
+ font:inherit;
 }
 
-html {
-    scroll-behavior: smooth;
+button {
+ cursor:pointer;
 }
 
-header {
-    background: white;
-    padding: 18px 6%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    box-shadow: 0 3px 15px #00000012;
+.topbar {
+ position:sticky;
+ top:0;
+ z-index:10;
+ padding:14px 5%;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ background:rgba(255,255,255,.52);
+ backdrop-filter:blur(18px);
+ border-bottom:1px solid rgba(255,255,255,.8);
 }
 
-.logo {
-    color: var(--dark);
-    font-family: Georgia, serif;
-    font-size: 23px;
-    font-weight: bold;
+.brand {
+ font-family:'Playfair Display',serif;
+ font-size:clamp(20px,3vw,29px);
+ color:var(--deep);
+ font-weight:700;
 }
 
-.logo span {
-    color: var(--gold);
+.brand span {
+ color:var(--gold);
 }
 
-nav a {
-    text-decoration: none;
-    color: #492638;
-    margin: 10px;
-    font-size: 14px;
+.nav {
+ display:flex;
+ gap:10px;
+ align-items:center;
 }
 
-nav a:hover {
-    color: var(--pink);
+.pill {
+ border:1px solid white;
+ border-radius:30px;
+ padding:10px 17px;
+ background:rgba(255,255,255,.6);
+ color:var(--deep);
+ font-weight:700;
+ text-decoration:none;
+ box-shadow:0 6px 20px #9d66801a;
 }
 
-button, .button {
-    background: var(--pink);
-    color: white;
-    border: none;
-    padding: 12px 22px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
+.primary {
+ background:linear-gradient(135deg,#c77b9e,#9d4e75);
+ color:white;
+ border:0;
 }
 
-button:hover, .button:hover {
-    background: var(--dark);
+.wrap {
+ width:min(1150px,92%);
+ margin:auto;
 }
-
-/* HERO SECTION */
 
 .hero {
-    min-height: 520px;
-    padding: 65px 8%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 30px;
-    flex-wrap: wrap;
-    background: linear-gradient(120deg, #fff1f5, #f6d9e5);
+ padding:68px 0 48px;
+ display:grid;
+ grid-template-columns:1.1fr .9fr;
+ gap:30px;
+ align-items:center;
 }
 
-.hero-text {
-    max-width: 550px;
+.eyebrow {
+ color:var(--rose);
+ font-weight:700;
+ letter-spacing:3px;
+ text-transform:uppercase;
+ font-size:12px;
 }
 
-.hero-text h4 {
-    color: var(--gold);
-    letter-spacing: 3px;
+.hero h1 {
+ font:600 clamp(38px,6vw,68px)/1.08 'Playfair Display',serif;
+ color:var(--deep);
+ margin:14px 0;
 }
 
-.hero-text h1 {
-    font-family: Georgia, serif;
-    font-size: clamp(38px, 5vw, 65px);
-    color: var(--dark);
-    margin: 20px 0;
+.hero p {
+ font-size:17px;
+ line-height:1.8;
+ max-width:520px;
+ color:#705b68;
 }
 
-.hero-text h1 span {
-    color: var(--pink);
+.hero-card {
+ min-height:320px;
+ border:1px solid white;
+ border-radius:34px;
+ background:linear-gradient(145deg,#ffffffa8,#f2cfe2a6);
+ backdrop-filter:blur(18px);
+ box-shadow:0 25px 70px #8f577329;
+ display:grid;
+ place-items:center;
+ position:relative;
+ overflow:hidden;
 }
 
-.hero-text p {
-    color: #795d6c;
-    line-height: 1.8;
-    margin-bottom: 25px;
+.hero-card:before,
+.hero-card:after {
+ content:"";
+ position:absolute;
+ border-radius:50%;
+ background:#ffffff55;
+ filter:blur(2px);
+}
+
+.hero-card:before {
+ width:210px;
+ height:210px;
+ top:-60px;
+ right:-30px;
+}
+
+.hero-card:after {
+ width:150px;
+ height:150px;
+ bottom:-40px;
+ left:-25px;
 }
 
 .hero-art {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, white, #e9b6ca);
-    display: grid;
-    place-items: center;
-    font-size: 125px;
-    color: var(--gold);
-    box-shadow: 0 15px 45px #9d3d6320;
+ font-size:115px;
+ filter:drop-shadow(0 18px 18px #81516b33);
+ z-index:1;
 }
 
-/* SECTIONS */
-
-section {
-    scroll-margin-top: 90px;
+.hero-caption {
+ position:absolute;
+ bottom:22px;
+ z-index:2;
+ font-family:'Playfair Display';
+ font-size:22px;
+ color:var(--deep);
 }
 
-.section {
-    padding: 65px 7%;
+.section-head {
+ display:flex;
+ justify-content:space-between;
+ align-items:end;
+ gap:16px;
+ margin:20px 0;
 }
 
-.heading {
-    text-align: center;
-    margin-bottom: 35px;
+.section-head h2 {
+ font:600 34px 'Playfair Display';
+ color:var(--deep);
+ margin:0;
 }
 
-.heading h2 {
-    font-family: Georgia, serif;
-    font-size: 36px;
-    color: var(--dark);
+.muted {
+ color:#866f7d;
 }
 
-.heading p {
-    color: #907887;
-    margin-top: 10px;
+.filters {
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin:18px 0 24px;
 }
 
-/* COLLECTIONS */
+.filter {
+ border:1px solid white;
+ background:#ffffff80;
+ color:var(--deep);
+ padding:9px 15px;
+ border-radius:30px;
+}
+
+.filter.active {
+ background:var(--deep);
+ color:white;
+}
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:22px;
+ margin-bottom:70px;
 }
 
-.card {
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 5px 20px #00000010;
-    transition: 0.3s;
+.product {
+ background:var(--glass);
+ border:1px solid white;
+ border-radius:24px;
+ overflow:hidden;
+ box-shadow:0 12px 35px #80516b16;
+ backdrop-filter:blur(16px);
+ transition:.2s;
 }
 
-.card:hover {
-    transform: translateY(-7px);
+.product:hover {
+ transform:translateY(-4px);
 }
 
-.card img {
-    width: 100%;
-    height: 240px;
-    object-fit: cover;
+.product img {
+ width:100%;
+ height:255px;
+ object-fit:cover;
+ display:block;
+ background:#f2e4eb;
 }
 
-.card-info {
-    padding: 18px;
+.product-info {
+ padding:17px;
 }
 
-.card-info h3 {
-    color: var(--dark);
-    font-family: Georgia, serif;
-    font-size: 22px;
-    margin-bottom: 10px;
+.product-info h3 {
+ margin:0 0 7px;
+ color:var(--deep);
+ font:600 21px 'Playfair Display';
 }
 
-.card-info p {
-    color: #806a78;
-    margin-bottom: 12px;
+.product-info p {
+ margin:0 0 13px;
+ color:#806d78;
+ line-height:1.5;
+ font-size:14px;
 }
 
-/* FEATURED */
-
-.featured {
-    background: #fff0f5;
+.product-bottom {
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:8px;
 }
 
 .price {
-    color: var(--pink);
-    font-weight: bold;
-    margin: 10px 0;
+ font-weight:700;
+ color:#9a4f72;
+ font-size:18px;
 }
 
-/* FOOTER */
+.empty {
+ grid-column:1/-1;
+ text-align:center;
+ padding:45px;
+ background:#ffffff70;
+ border-radius:20px;
+ color:#806d78;
+}
 
 footer {
-    background: #481c32;
-    color: white;
-    padding: 45px 7%;
-    text-align: center;
+ text-align:center;
+ padding:28px;
+ color:#8a7180;
+ border-top:1px solid #fff8;
 }
 
-footer h2 {
-    color: #e7c17c;
-    font-family: Georgia, serif;
-    margin-bottom: 12px;
+.modal {
+ position:fixed;
+ inset:0;
+ z-index:30;
+ background:#34202e88;
+ backdrop-filter:blur(8px);
+ display:none;
+ align-items:center;
+ justify-content:center;
+ padding:18px;
 }
 
-footer p {
-    margin: 10px;
-    color: #f4dce7;
+.modal.show {
+ display:flex;
 }
 
-/* ADMIN DASHBOARD */
-
-#admin {
-    display: none;
-    padding: 40px 7%;
-    background: #fff0f5;
+.modal-card {
+ width:min(520px,100%);
+ max-height:92vh;
+ overflow:auto;
+ background:#fffafc;
+ border:1px solid white;
+ border-radius:26px;
+ padding:25px;
+ box-shadow:0 24px 80px #32172b55;
 }
 
-.admin-box {
-    background: white;
-    padding: 25px;
-    margin: 20px 0;
-    border-radius: 8px;
-    box-shadow: 0 3px 15px #00000010;
+.modal-card h2 {
+ font:600 28px 'Playfair Display';
+ color:var(--deep);
+ margin:0 0 18px;
 }
 
-.admin-box h2,
-.admin-box h3 {
-    color: var(--dark);
-    margin-bottom: 18px;
+.field {
+ display:grid;
+ gap:7px;
+ margin:12px 0;
 }
 
-input, select {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0 15px;
-    border: 1px solid #e4c6d3;
-    border-radius: 5px;
+.field label {
+ font-size:13px;
+ font-weight:700;
+ color:#79596c;
 }
 
-label {
-    color: var(--dark);
-    font-weight: bold;
-    font-size: 13px;
+.field input,
+.field textarea,
+.field select {
+ width:100%;
+ border:1px solid #ead6e1;
+ border-radius:13px;
+ padding:12px;
+ background:white;
+ outline:none;
+ color:var(--ink);
+}
+
+.field textarea {
+ min-height:80px;
+ resize:vertical;
+}
+
+.actions {
+ display:flex;
+ gap:9px;
+ flex-wrap:wrap;
+ margin-top:16px;
+}
+
+.admin-panel {
+ width:min(900px,100%);
+}
+
+.admin-top {
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:12px;
 }
 
 .admin-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+ display:grid;
+ gap:10px;
+ margin-top:20px;
 }
 
-.admin-item {
-    border: 1px solid #eed9e2;
-    padding: 12px;
-    border-radius: 6px;
+.admin-row {
+ display:flex;
+ align-items:center;
+ gap:13px;
+ background:#fff;
+ border:1px solid #f0dfe8;
+ border-radius:15px;
+ padding:9px;
 }
 
-.admin-item img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
+.admin-row img {
+ width:65px;
+ height:65px;
+ object-fit:cover;
+ border-radius:10px;
 }
 
-.admin-item h4 {
-    margin: 10px 0;
-    color: var(--dark);
+.admin-row .grow {
+ flex:1;
 }
 
-.admin-item button {
-    margin: 4px;
-    padding: 8px 12px;
+.small {
+ font-size:13px;
+ color:#856d7b;
 }
 
-.delete {
-    background: #b52b43;
+.hidden {
+ display:none!important;
 }
 
-.warning {
-    background: #fff0d7;
-    padding: 15px;
-    color: #704d17;
-    font-size: 13px;
-    line-height: 1.6;
-    margin-bottom: 15px;
+.notice {
+ padding:12px 14px;
+ border-radius:12px;
+ background:#f8eaf1;
+ color:#78445e;
+ font-size:13px;
+ line-height:1.5;
+ margin:12px 0;
 }
 
-/* MOBILE */
-
-@media(max-width:700px) {
-
-    header {
-        justify-content: center;
-    }
-
-    nav {
-        text-align: center;
-    }
-
-    .hero {
-        justify-content: center;
-        text-align: center;
-    }
-
-    .hero-art {
-        width: 230px;
-        height: 230px;
-    }
-
+.preview {
+ max-width:100%;
+ max-height:220px;
+ object-fit:contain;
+ border-radius:14px;
+ margin-top:8px;
 }
 
+.camera-help {
+ font-size:12px;
+ color:#856d7b;
+}
+
+@media(max-width:760px) {
+ .hero {
+  grid-template-columns:1fr;
+  padding-top:42px;
+ }
+
+ .hero-card {
+  min-height:230px;
+ }
+
+ .hero-art {
+  font-size:85px;
+ }
+
+ .grid {
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+ }
+
+ .product img {
+  height:190px;
+ }
+
+ .product-info {
+  padding:13px;
+ }
+
+ .product-info h3 {
+  font-size:18px;
+ }
+
+ .topbar {
+  padding:12px 4%;
+ }
+
+ .pill {
+  padding:9px 12px;
+  font-size:13px;
+ }
+}
+
+@media(max-width:460px) {
+ .grid {
+  grid-template-columns:1fr 1fr;
+ }
+
+ .product img {
+  height:155px;
+ }
+
+ .product-info p {
+  font-size:12px;
+ }
+
+ .product-bottom {
+  align-items:flex-start;
+  flex-direction:column;
+ }
+
+ .hero h1 {
+  font-size:43px;
+ }
+
+ .brand {
+  font-size:19px;
+ }
+}
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
+<header class="topbar">
+ <div class="brand">HARSHINI <span>BANGLE'S</span> STORE</div>
 
-<header>
-
-    <div class="logo">
-        ✿ HARSHINI <span>BANGLE'S STORE</span>
-    </div>
-
-    <nav>
-        <a href="#">Home</a>
-        <a href="#collections">Collections</a>
-        <a href="#products">Products</a>
-        <a href="#contact">Contact</a>
-    </nav>
-
-    <a class="button" id="topWhatsApp" target="_blank">
-        WhatsApp
-    </a>
-
+ <nav class="nav">
+  <a class="pill" href="#collections">Collections</a>
+  <button class="pill" id="adminOpen">Admin Login</button>
+ </nav>
 </header>
 
+<main class="wrap">
 
-<!-- HERO -->
+ <section class="hero">
 
-<section class="hero">
+  <div>
+   <div class="eyebrow">Elegance in every detail</div>
 
-    <div class="hero-text">
+   <h1>Little things.<br>Beautiful sparkle.</h1>
 
-        <h4>TRADITION • BEAUTY • ELEGANCE</h4>
+   <p>
+    Discover beautiful bangles, earrings, necklaces and jewellery
+    pieces chosen to make every moment special.
+   </p>
 
-        <h1>
-            Every Bangle Tells
-            <span>A Beautiful Story.</span>
-        </h1>
+   <a class="pill primary" href="#collections">
+    Explore collections
+   </a>
+  </div>
 
-        <p>
-            Discover beautiful bangle collections
-            for weddings, festivals and everyday elegance.
-            Find the perfect design for every special moment.
-        </p>
+  <div class="hero-card">
+   <div class="hero-art">💎 ✨</div>
+   <div class="hero-caption">A little sparkle for you</div>
+  </div>
 
-        <a href="#collections" class="button">
-            Explore Collections
-        </a>
+ </section>
 
-    </div>
+ <section id="collections">
 
-    <div class="hero-art">
-        💍
-    </div>
+  <div class="section-head">
+   <div>
+    <div class="eyebrow">Made to make you shine</div>
+    <h2>Our Collection</h2>
+   </div>
 
-</section>
+   <span class="muted" id="countLabel"></span>
+  </div>
 
+  <div class="filters" id="filters"></div>
 
-<!-- COLLECTIONS -->
+  <div class="grid" id="productGrid">
+   <div class="empty">Loading collection...</div>
+  </div>
 
-<section class="section" id="collections">
+ </section>
 
-    <div class="heading">
-
-        <h2>Our Collections</h2>
-
-        <p>Discover your favourite styles</p>
-
-    </div>
-
-    <div class="grid" id="categoryGrid">
-
-    </div>
-
-</section>
-
-
-<!-- PRODUCTS -->
-
-<section class="section featured" id="products">
-
-    <div class="heading">
-
-        <h2>Our Beautiful Designs</h2>
-
-        <p>Explore our latest bangle collections</p>
-
-    </div>
-
-    <div class="grid" id="productGrid">
-
-    </div>
-
-</section>
-
-
-<!-- CONTACT -->
-
-<section class="section" id="contact">
-
-    <div class="heading">
-
-        <h2>We Would Love To Hear From You</h2>
-
-        <p>
-            Have questions about designs or sizes?
-            Contact us directly on WhatsApp.
-        </p>
-
-        <br>
-
-        <a class="button" id="contactWhatsApp" target="_blank">
-            Message Us On WhatsApp
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- FOOTER -->
+</main>
 
 <footer>
-
-    <h2>HARSHINI BANGLE'S STORE</h2>
-
-    <p>Shine in Every Moment ✨</p>
-
-    <p>Beautiful Bangles for Every Occasion</p>
-
-    <p>© 2026 Harshini Bangle's Store</p>
-
+ HARSHINI BANGLE'S STORE · Made with love ✨
 </footer>
+
+
+<!-- ADMIN LOGIN -->
+
+<div class="modal" id="loginModal">
+
+ <div class="modal-card">
+
+  <div class="admin-top">
+   <h2>Admin Login</h2>
+   <button class="pill" data-close="loginModal">✕</button>
+  </div>
+
+  <p class="muted">
+   Sign in with your authorised store admin account.
+  </p>
+
+  <form id="loginForm">
+
+   <div class="field">
+    <label>Admin email</label>
+    <input id="loginEmail" type="email" required placeholder="Your admin email">
+   </div>
+
+   <div class="field">
+    <label>Password</label>
+    <input id="loginPassword" type="password" required placeholder="Your password">
+   </div>
+
+   <button class="pill primary" type="submit">
+    Sign in
+   </button>
+
+  </form>
+
+  <div class="notice">
+   Admin access is protected by Supabase Authentication.
+  </div>
+
+  <p id="loginMessage" class="small"></p>
+
+ </div>
+</div>
 
 
 <!-- ADMIN DASHBOARD -->
 
-<section id="admin">
+<div class="modal" id="adminModal">
 
-    <div class="admin-box">
+ <div class="modal-card admin-panel">
 
-        <h2>Admin Dashboard</h2>
+  <div class="admin-top">
 
-        <p>Manage your store products and collections.</p>
+   <div>
+    <div class="eyebrow">Store management</div>
+    <h2>Admin Dashboard</h2>
+   </div>
 
-        <div class="warning">
-            This GitHub Pages version is a demonstration.
-            Its password and product data are not securely protected.
-            Anyone technically familiar with browser storage can bypass
-            the login or alter local data. Use a secure backend with
-            authentication and storage permissions before using this
-            for your real business.
-        </div>
+   <button class="pill" id="logoutBtn">
+    Log out
+   </button>
 
-        <button onclick="logout()" class="delete">
-            Logout
-        </button>
+  </div>
 
-    </div>
+  <div class="notice">
+   Take a new photo using your phone camera or choose a photo from your gallery.
+  </div>
 
+  <form id="productForm">
 
-    <!-- ADD COLLECTION -->
+   <input type="hidden" id="productId">
 
-    <div class="admin-box">
+   <div class="field">
+    <label>Product name</label>
+    <input id="pName" required maxlength="90" placeholder="Golden stone earrings">
+   </div>
 
-        <h3>Add New Collection</h3>
+   <div class="field">
+    <label>Collection</label>
 
-        <form id="categoryForm">
+    <select id="pCategory">
+     <option>Bangles</option>
+     <option>Earrings</option>
+     <option>Necklaces</option>
+     <option>Bracelets</option>
+     <option>Other</option>
+    </select>
+   </div>
 
-            <label>Collection Name</label>
+   <div class="field">
+    <label>Price (₹) — optional</label>
+    <input id="pPrice" type="number" min="0" step="1" placeholder="499">
+   </div>
 
-            <input type="text" id="categoryName"
-            placeholder="Example: Bridal Bangles" required>
+   <div class="field">
+    <label>Description</label>
+    <textarea id="pDescription" maxlength="500"></textarea>
+   </div>
 
-            <label>Collection Photo</label>
+   <div class="field">
+    <label>Take a new photo using camera</label>
 
-            <input type="file" id="categoryPhoto"
-            accept="image/*">
+    <input
+     id="cameraInput"
+     type="file"
+     accept="image/*"
+     capture="environment"
+    >
 
-            <button type="submit">
-                Add Collection
-            </button>
+    <span class="camera-help">
+     On supported phones this opens the rear camera.
+    </span>
+   </div>
 
-        </form>
+   <div class="field">
+    <label>Or choose from gallery</label>
+    <input id="galleryInput" type="file" accept="image/*">
+   </div>
 
-    </div>
+   <img id="photoPreview" class="preview hidden" alt="Photo preview">
 
+   <div class="actions">
 
-    <!-- ADD PRODUCT -->
+    <button class="pill primary" type="submit" id="saveProductBtn">
+     Save product
+    </button>
 
-    <div class="admin-box">
+    <button class="pill" type="button" id="resetForm">
+     Clear form
+    </button>
 
-        <h3>Add New Product</h3>
+   </div>
 
-        <form id="productForm">
+   <p id="saveMessage" class="small"></p>
 
-            <label>Product Name</label>
+  </form>
 
-            <input type="text" id="productName"
-            placeholder="Enter product name" required>
+  <hr style="border:0;border-top:1px solid #eedde6;margin:24px 0">
 
-            <label>Select Collection</label>
+  <h2 style="font-size:23px">Manage products</h2>
 
-            <select id="productCategory" required>
-            </select>
+  <div class="admin-list" id="adminList"></div>
 
-            <label>Price</label>
-
-            <input type="number" id="productPrice"
-            placeholder="Enter price" min="0">
-
-            <label>Product Photos</label>
-
-            <input type="file" id="productPhoto"
-            accept="image/*" multiple required>
-
-            <label>
-                <input type="checkbox" id="featuredProduct"
-                style="width:auto">
-                Show on homepage
-            </label>
-
-            <br><br>
-
-            <button type="submit">
-                Upload Product
-            </button>
-
-        </form>
-
-    </div>
-
-
-    <!-- MANAGE COLLECTIONS -->
-
-    <div class="admin-box">
-
-        <h3>Manage Collections</h3>
-
-        <div class="admin-list" id="adminCategories"></div>
-
-    </div>
-
-
-    <!-- MANAGE PRODUCTS -->
-
-    <div class="admin-box">
-
-        <h3>Manage Products</h3>
-
-        <div class="admin-list" id="adminProducts"></div>
-
-    </div>
-
-</section>
+ </div>
+</div>
 
 
 <script>
 
-/* ==================================
-   STORE SETTINGS
-================================== */
+// SUPABASE CONNECTION
 
-// Change this to your mother's WhatsApp number.
-// Include country code. Example: 919876543210
+const SUPABASE_URL =
+"https://keqkranpdzybgqdcgzwq.supabase.co";
 
-const WHATSAPP = "919948841425";
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable__23R8hcrWkdtNhP_6dqe_A_HvcqKP39";
 
-// Change this password for the demonstration.
-// This is NOT secure for a public GitHub website.
+// CHANGE THIS TO YOUR STORE WHATSAPP NUMBER
+const WHATSAPP_NUMBER = "919948841425";
 
-const ADMIN_PASSWORD = "SHASHANK.COM";
+const TABLE = "products";
+const BUCKET = "product-photos";
 
-
-/* ==================================
-   DATABASE (BROWSER STORAGE)
-================================== */
-
-let categories = JSON.parse(
-    localStorage.getItem("harshini_categories") || "[]"
+const db = window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_PUBLISHABLE_KEY
 );
 
-let products = JSON.parse(
-    localStorage.getItem("harshini_products") || "[]"
-);
+let currentUser = null;
+let products = [];
+let selectedFile = null;
+let activeCategory = "All";
 
-let admin = sessionStorage.getItem("harshini_admin") === "yes";
+const $ = id => document.getElementById(id);
 
 
-function saveData() {
+// MESSAGES
 
-    localStorage.setItem(
-        "harshini_categories",
-        JSON.stringify(categories)
-    );
+function message(id,text,isError=false) {
+ $(id).textContent = text;
 
-    localStorage.setItem(
-        "harshini_products",
-        JSON.stringify(products)
-    );
-
+ $(id).style.color = isError
+  ? "#b3264b"
+  : "#6e5362";
 }
 
 
-function whatsappLink(message) {
+// MODALS
 
-    return "https://wa.me/" + WHATSAPP +
-    "?text=" + encodeURIComponent(message);
-
+function openModal(id) {
+ $(id).classList.add("show");
 }
 
-
-document.getElementById("topWhatsApp").href =
-    whatsappLink("Hello! I would like to know about your bangles.");
-
-document.getElementById("contactWhatsApp").href =
-    whatsappLink("Hello! I would like to place an order.");
-
-
-/* ==================================
-   SECURITY: DISPLAY TEXT SAFELY
-================================== */
-
-function safe(value) {
-
-    return String(value ?? "").replace(
-        /[&<>"']/g,
-        character => ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
-        })[character]
-    );
-
+function closeModal(id) {
+ $(id).classList.remove("show");
 }
 
+document.querySelectorAll("[data-close]").forEach(button => {
+ button.addEventListener("click",() => {
+  closeModal(button.dataset.close);
+ });
+});
 
-function readPhoto(file) {
 
-    return new Promise((resolve, reject) => {
+// ADMIN LOGIN
 
-        const reader = new FileReader();
+$("adminOpen").addEventListener("click",async()=>{
 
-        reader.onload = () => resolve(reader.result);
+ const {data:{session}} = await db.auth.getSession();
 
-        reader.onerror = reject;
-
-        reader.readAsDataURL(file);
-
-    });
-
-}
-
-
-/* ==================================
-   DISPLAY COLLECTIONS
-================================== */
-
-function renderCategories() {
-
-    const grid = document.getElementById("categoryGrid");
-
-    grid.innerHTML = "";
-
-    categories.forEach(category => {
-
-        grid.innerHTML += `
-
-        <div class="card">
-
-            ${category.photo
-                ? `<img src="${category.photo}" alt="${safe(category.name)}">`
-                : `<div style="height:200px;display:grid;place-items:center;background:#fce8ef;font-size:55px">✿</div>`
-            }
-
-            <div class="card-info">
-
-                <h3>${safe(category.name)}</h3>
-
-                <button onclick="filterCategory('${category.id}')">
-                    Explore
-                </button>
-
-            </div>
-
-        </div>
-
-        `;
-
-    });
-
-    if (categories.length === 0) {
-
-        grid.innerHTML = "<p>Our collections will appear here soon.</p>";
-
-    }
-
-}
-
-
-/* ==================================
-   DISPLAY PRODUCTS
-================================== */
-
-function renderProducts(categoryId = null) {
-
-    const grid = document.getElementById("productGrid");
-
-    grid.innerHTML = "";
-
-    let filtered = products.filter(product => {
-
-        return categoryId
-            ? product.category === categoryId
-            : product.featured;
-
-    });
-
-    filtered.forEach(product => {
-
-        grid.innerHTML += `
-
-        <div class="card">
-
-            <img src="${product.photo}" alt="${safe(product.name)}">
-
-            <div class="card-info">
-
-                <h3>${safe(product.name)}</h3>
-
-                <p class="price">
-                    ₹${Number(product.price).toLocaleString("en-IN")}
-                </p>
-
-                <a class="button"
-                target="_blank"
-                href="${whatsappLink("Hello! I am interested in " + product.name)}">
-
-                    Enquire Now
-
-                </a>
-
-            </div>
-
-        </div>
-
-        `;
-
-    });
-
-    if (filtered.length === 0) {
-
-        grid.innerHTML = "<p>No products available yet.</p>";
-
-    }
-
-}
-
-
-function filterCategory(id) {
-
-    renderProducts(id);
-
-    document.getElementById("products").scrollIntoView({
-        behavior: "smooth"
-    });
-
-}
-
-
-/* ==================================
-   ADMIN DASHBOARD
-================================== */
-
-function renderAdmin() {
-
-    document.getElementById("admin").style.display =
-        admin ? "block" : "none";
-
-    if (!admin) return;
-
-
-    // Category dropdown
-
-    document.getElementById("productCategory").innerHTML =
-        categories.map(category => `
-
-            <option value="${category.id}">
-                ${safe(category.name)}
-            </option>
-
-        `).join("");
-
-
-    // Manage categories
-
-    document.getElementById("adminCategories").innerHTML =
-        categories.map(category => `
-
-        <div class="admin-item">
-
-            ${category.photo
-                ? `<img src="${category.photo}" alt="">`
-                : ""
-            }
-
-            <h4>${safe(category.name)}</h4>
-
-            <button onclick="editCategory('${category.id}')">
-                Edit
-            </button>
-
-            <button class="delete"
-            onclick="deleteCategory('${category.id}')">
-                Delete
-            </button>
-
-        </div>
-
-        `).join("") || "<p>No collections available.</p>";
-
-
-    // Manage products
-
-    document.getElementById("adminProducts").innerHTML =
-        products.map(product => `
-
-        <div class="admin-item">
-
-            <img src="${product.photo}" alt="">
-
-            <h4>${safe(product.name)}</h4>
-
-            <p>₹${Number(product.price)}</p>
-
-            <button onclick="editProduct('${product.id}')">
-                Edit
-            </button>
-
-            <button class="delete"
-            onclick="deleteProduct('${product.id}')">
-                Delete
-            </button>
-
-        </div>
-
-        `).join("") || "<p>No products available.</p>";
-
-}
-
-
-/* ==================================
-   ADD COLLECTION
-================================== */
-
-document.getElementById("categoryForm")
-.addEventListener("submit", async function(event) {
-
-    event.preventDefault();
-
-    const name =
-        document.getElementById("categoryName").value;
-
-    const file =
-        document.getElementById("categoryPhoto").files[0];
-
-    categories.push({
-
-        id: String(Date.now()),
-
-        name: name.trim(),
-
-        photo: file ? await readPhoto(file) : ""
-
-    });
-
-    try {
-
-        saveData();
-
-        this.reset();
-
-        renderAll();
-
-        alert("Collection added successfully!");
-
-    } catch(error) {
-
-        alert("Storage full. Try a smaller photo.");
-
-    }
+ if(session) {
+  currentUser = session.user;
+  await openAdmin();
+ } else {
+  openModal("loginModal");
+ }
 
 });
 
 
-/* ==================================
-   ADD PRODUCTS
-================================== */
+$("loginForm").addEventListener("submit",async e=>{
 
-document.getElementById("productForm")
-.addEventListener("submit", async function(event) {
+ e.preventDefault();
 
-    event.preventDefault();
+ message("loginMessage","Signing in...");
 
-    if (categories.length === 0) {
+ const {data,error} = await db.auth.signInWithPassword({
 
-        alert("Please add a collection first.");
+  email:$("loginEmail").value.trim(),
 
-        return;
+  password:$("loginPassword").value
 
-    }
+ });
 
-    const name =
-        document.getElementById("productName").value.trim();
+ if(error) {
+  message("loginMessage",error.message,true);
+  return;
+ }
 
-    const category =
-        document.getElementById("productCategory").value;
+ currentUser = data.user;
 
-    const price =
-        Number(document.getElementById("productPrice").value) || 0;
+ closeModal("loginModal");
 
-    const featured =
-        document.getElementById("featuredProduct").checked;
-
-    const files =
-        [...document.getElementById("productPhoto").files];
-
-    try {
-
-        for (const file of files) {
-
-            products.push({
-
-                id: String(Date.now() + Math.random()),
-
-                name: name,
-
-                category: category,
-
-                price: price,
-
-                featured: featured,
-
-                photo: await readPhoto(file)
-
-            });
-
-        }
-
-        saveData();
-
-        this.reset();
-
-        renderAll();
-
-        alert("Products uploaded successfully!");
-
-    } catch(error) {
-
-        alert("Storage full. Use smaller images or a proper image storage service.");
-
-    }
+ await openAdmin();
 
 });
 
 
-/* ==================================
-   EDIT COLLECTION
-================================== */
+// LOGOUT
 
-function editCategory(id) {
+$("logoutBtn").addEventListener("click",async()=>{
 
-    const category = categories.find(c => c.id === id);
+ await db.auth.signOut();
 
-    const name = prompt(
-        "Enter new collection name:",
-        category.name
-    );
+ currentUser = null;
 
-    if (name === null) return;
+ closeModal("adminModal");
 
-    category.name = name.trim() || category.name;
-
-    saveData();
-
-    renderAll();
-
-}
+});
 
 
-/* ==================================
-   DELETE COLLECTION
-================================== */
+// LOAD PRODUCTS
 
-function deleteCategory(id) {
+async function loadProducts() {
 
-    if (products.some(p => p.category === id)) {
+ const {data,error} = await db
+  .from(TABLE)
+  .select("*")
+  .order("created_at",{ascending:false});
 
-        alert("Delete the products in this collection first.");
+ if(error) {
 
-        return;
+  $("productGrid").innerHTML =
+   '<div class="empty">Could not load products. Check Supabase database setup.</div>';
 
-    }
+  console.error(error);
 
-    if (!confirm("Delete this collection?")) return;
+  return;
+ }
 
-    categories = categories.filter(c => c.id !== id);
+ products = data || [];
 
-    saveData();
+ renderProducts();
 
-    renderAll();
+ if(currentUser) {
+  renderAdminList();
+ }
 
 }
 
 
-/* ==================================
-   EDIT PRODUCT
-================================== */
+// DISPLAY PRODUCTS
+
+function renderProducts() {
+
+ const categories = [
+  "All",
+  ...new Set(products.map(p=>p.category).filter(Boolean))
+ ];
+
+ $("filters").innerHTML = categories.map(category => `
+
+  <button class="filter ${activeCategory===category?"active":""}"
+   data-cat="${escapeHtml(category)}">
+
+   ${escapeHtml(category)}
+
+  </button>
+
+ `).join("");
+
+ $("filters").querySelectorAll("button").forEach(button=>{
+
+  button.onclick = ()=>{
+
+   activeCategory = button.dataset.cat;
+
+   renderProducts();
+
+  };
+
+ });
+
+ const shown = activeCategory==="All"
+  ? products
+  : products.filter(p=>p.category===activeCategory);
+
+ $("countLabel").textContent =
+  `${products.length} items`;
+
+ $("productGrid").innerHTML = shown.length
+
+ ? shown.map(p=>`
+
+  <article class="product">
+
+   <img
+    src="${escapeAttr(p.image_url)}"
+    alt="${escapeAttr(p.name)}"
+    loading="lazy"
+   >
+
+   <div class="product-info">
+
+    <h3>${escapeHtml(p.name)}</h3>
+
+    <p>
+     ${escapeHtml(p.description || p.category || "")}
+    </p>
+
+    <div class="product-bottom">
+
+     <span class="price">
+
+      ${
+       p.price !== null && p.price !== ""
+       ? "₹"+Number(p.price).toLocaleString("en-IN")
+       : "Price on enquiry"
+      }
+
+     </span>
+
+     <a
+      class="pill primary"
+      target="_blank"
+      rel="noopener"
+      href="${whatsappLink(p)}"
+     >
+      Enquire
+     </a>
+
+    </div>
+
+   </div>
+
+  </article>
+
+ `).join("")
+
+ : '<div class="empty">New arrivals coming soon. ✨</div>';
+
+}
+
+
+// WHATSAPP
+
+function whatsappLink(product) {
+
+ const text =
+  `Hello! I am interested in ${product.name}. Is it available?`;
+
+ return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+
+}
+
+
+// HTML SECURITY HELPERS
+
+function escapeHtml(value="") {
+
+ return String(value).replace(/[&<>"']/g,char=>({
+
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+
+ }[char]));
+
+}
+
+function escapeAttr(value="") {
+ return escapeHtml(value);
+}
+
+
+// ADMIN DASHBOARD
+
+async function openAdmin() {
+
+ openModal("adminModal");
+
+ await loadProducts();
+
+ renderAdminList();
+
+}
+
+
+// ADMIN PRODUCT LIST
+
+function renderAdminList() {
+
+ $("adminList").innerHTML = products.length
+
+ ? products.map(p=>`
+
+  <div class="admin-row">
+
+   <img src="${escapeAttr(p.image_url)}" alt="">
+
+   <div class="grow">
+
+    <b>${escapeHtml(p.name)}</b>
+
+    <div class="small">
+     ${escapeHtml(p.category)} ·
+     ${p.price ? "₹"+p.price : "No price"}
+    </div>
+
+   </div>
+
+   <button class="pill" data-edit="${p.id}">
+    Edit
+   </button>
+
+   <button class="pill" data-delete="${p.id}">
+    Delete
+   </button>
+
+  </div>
+
+ `).join("")
+
+ : '<p class="small">No products added yet.</p>';
+
+
+ $("adminList").querySelectorAll("[data-edit]").forEach(button=>{
+
+  button.onclick = ()=>editProduct(button.dataset.edit);
+
+ });
+
+
+ $("adminList").querySelectorAll("[data-delete]").forEach(button=>{
+
+  button.onclick = ()=>deleteProduct(button.dataset.delete);
+
+ });
+
+}
+
+
+// RESET FORM
+
+function resetProductForm() {
+
+ $("productForm").reset();
+
+ $("productId").value = "";
+
+ selectedFile = null;
+
+ $("photoPreview").classList.add("hidden");
+
+ $("photoPreview").src = "";
+
+ $("saveProductBtn").textContent = "Save product";
+
+ message("saveMessage","");
+
+}
+
+$("resetForm").onclick = resetProductForm;
+
+
+// PHOTO SELECTION
+
+function choosePhoto(file) {
+
+ if(!file) return;
+
+ if(!file.type.startsWith("image/")) {
+
+  message("saveMessage","Please choose an image file.",true);
+
+  return;
+
+ }
+
+ if(file.size > 12*1024*1024) {
+
+  message("saveMessage","Please choose a photo smaller than 12 MB.",true);
+
+  return;
+
+ }
+
+ selectedFile = file;
+
+ $("photoPreview").src = URL.createObjectURL(file);
+
+ $("photoPreview").classList.remove("hidden");
+
+}
+
+
+// CAMERA
+
+$("cameraInput").addEventListener("change",e=>{
+
+ if(e.target.files[0]) {
+
+  $("galleryInput").value = "";
+
+  choosePhoto(e.target.files[0]);
+
+ }
+
+});
+
+
+// GALLERY
+
+$("galleryInput").addEventListener("change",e=>{
+
+ if(e.target.files[0]) {
+
+  $("cameraInput").value = "";
+
+  choosePhoto(e.target.files[0]);
+
+ }
+
+});
+
+
+// UPLOAD PHOTO
+
+async function uploadPhoto(file) {
+
+ const ext = (file.name.split(".").pop() || "jpg")
+  .toLowerCase()
+  .replace(/[^a-z0-9]/g,"") || "jpg";
+
+ const path =
+  `${Date.now()}-${crypto.randomUUID()}.${ext}`;
+
+ const {error} = await db.storage
+  .from(BUCKET)
+  .upload(path,file,{
+
+   cacheControl:"3600",
+
+   upsert:false,
+
+   contentType:file.type
+
+  });
+
+ if(error) throw error;
+
+ return {
+
+  path,
+
+  url:db.storage
+   .from(BUCKET)
+   .getPublicUrl(path).data.publicUrl
+
+ };
+
+}
+
+
+// SAVE PRODUCT
+
+$("productForm").addEventListener("submit",async e=>{
+
+ e.preventDefault();
+
+ if(!currentUser) {
+
+  message("saveMessage","Please sign in again.",true);
+
+  return;
+
+ }
+
+ const id = $("productId").value;
+
+ const old = products.find(p=>String(p.id)===String(id));
+
+ $("saveProductBtn").disabled = true;
+
+ message("saveMessage","Saving product...");
+
+ try {
+
+  let image_url = old?.image_url || "";
+
+  let image_path = old?.image_path || null;
+
+  if(selectedFile) {
+
+   const uploaded = await uploadPhoto(selectedFile);
+
+   image_url = uploaded.url;
+
+   image_path = uploaded.path;
+
+  }
+
+  if(!image_url) {
+
+   throw new Error("Please take or choose a product photo.");
+
+  }
+
+  const payload = {
+
+   name:$("pName").value.trim(),
+
+   category:$("pCategory").value,
+
+   price:$("pPrice").value
+    ? Number($("pPrice").value)
+    : null,
+
+   description:$("pDescription").value.trim(),
+
+   image_url,
+
+   image_path
+
+  };
+
+  let result;
+
+  if(id) {
+
+   result = await db
+    .from(TABLE)
+    .update(payload)
+    .eq("id",id);
+
+  } else {
+
+   result = await db
+    .from(TABLE)
+    .insert(payload);
+
+  }
+
+  if(result.error) throw result.error;
+
+  message("saveMessage","Product saved successfully!");
+
+  resetProductForm();
+
+  await loadProducts();
+
+ } catch(error) {
+
+  message(
+   "saveMessage",
+   error.message || "Could not save product.",
+   true
+  );
+
+ } finally {
+
+  $("saveProductBtn").disabled = false;
+
+ }
+
+});
+
+
+// EDIT PRODUCT
 
 function editProduct(id) {
 
-    const product = products.find(p => p.id === id);
+ const p = products.find(x=>String(x.id)===String(id));
 
-    const name = prompt(
-        "Enter product name:",
-        product.name
-    );
+ if(!p) return;
 
-    if (name === null) return;
+ $("productId").value = p.id;
 
-    const price = prompt(
-        "Enter product price:",
-        product.price
-    );
+ $("pName").value = p.name;
 
-    if (price === null) return;
+ $("pCategory").value = p.category || "Other";
 
-    product.name = name.trim() || product.name;
+ $("pPrice").value = p.price ?? "";
 
-    product.price = Math.max(0, Number(price) || 0);
+ $("pDescription").value = p.description || "";
 
-    product.featured = confirm(
-        "Show this product on the homepage?"
-    );
+ $("photoPreview").src = p.image_url;
 
-    saveData();
+ $("photoPreview").classList.remove("hidden");
 
-    renderAll();
+ selectedFile = null;
+
+ $("saveProductBtn").textContent = "Update product";
+
+ window.scrollTo({top:0,behavior:"smooth"});
 
 }
 
 
-/* ==================================
-   DELETE PRODUCT
-================================== */
+// DELETE PRODUCT
 
-function deleteProduct(id) {
+async function deleteProduct(id) {
 
-    if (!confirm("Are you sure you want to delete this product?")) {
-        return;
-    }
+ const p = products.find(x=>String(x.id)===String(id));
 
-    products = products.filter(p => p.id !== id);
+ if(!p || !confirm(`Delete "${p.name}"?`)) return;
 
-    saveData();
+ const {error} = await db
+  .from(TABLE)
+  .delete()
+  .eq("id",id);
 
-    renderAll();
+ if(error) {
 
-}
+  alert(error.message);
 
+  return;
 
-/* ==================================
-   ADMIN LOGIN
-================================== */
+ }
 
-function logout() {
+ if(p.image_path) {
 
-    sessionStorage.removeItem("harshini_admin");
+  await db.storage
+   .from(BUCKET)
+   .remove([p.image_path]);
 
-    admin = false;
+ }
 
-    renderAll();
-
-}
-
-
-function adminLogin() {
-
-    if (admin) return;
-
-    const password = prompt("Enter Admin Password:");
-
-    if (password === ADMIN_PASSWORD) {
-
-        admin = true;
-
-        sessionStorage.setItem("harshini_admin", "yes");
-
-        renderAll();
-
-        document.getElementById("admin").scrollIntoView({
-            behavior: "smooth"
-        });
-
-    } else if (password !== null) {
-
-        alert("Incorrect password!");
-
-    }
+ await loadProducts();
 
 }
 
 
-/* ==================================
-   LOAD WEBSITE
-================================== */
+// CHECK LOGIN SESSION
 
-function renderAll() {
+db.auth.getSession().then(({data})=>{
 
-    renderCategories();
+ currentUser = data.session?.user || null;
 
-    renderProducts();
+});
 
-    renderAdmin();
+db.auth.onAuthStateChange((_event,session)=>{
 
-}
+ currentUser = session?.user || null;
+
+});
 
 
-// Open your website with #admin to show the demo login.
+// START WEBSITE
 
-if (location.hash === "#admin" && !admin) {
-
-    adminLogin();
-
-}
-
-renderAll();
+loadProducts();
 
 </script>
 
