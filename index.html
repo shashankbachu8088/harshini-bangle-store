@@ -1,714 +1,1271 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f8e9f2">
-<title>Harshini Bangle's Store</title>
+
+<title>HARSHINI BANGLE'S STORE</title>
+
+<meta name="theme-color" content="#f5dce9">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
+/* ==============================
+   MAIN DESIGN
+============================== */
+
 :root {
- --pink:#f5dce9;
- --rose:#b85f86;
- --deep:#69334f;
- --gold:#c59a55;
- --ink:#392b35;
- --glass:rgba(255,255,255,.57);
+    --pink: #f5dce9;
+    --rose: #b85f86;
+    --deep: #69334f;
+    --gold: #c59a55;
+    --ink: #392b35;
+    --glass: rgba(255,255,255,.62);
 }
 
 * {
- box-sizing:border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
- margin:0;
- color:var(--ink);
- font-family:'DM Sans',sans-serif;
- background:
- radial-gradient(circle at 12% 10%,#fff 0,transparent 26%),
- radial-gradient(circle at 90% 18%,#f4cddd 0,transparent 28%),
- linear-gradient(135deg,#fff8fb,#f5e6ef 48%,#e9e8f7);
- min-height:100vh;
- background-attachment:fixed;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+
+    background:
+        radial-gradient(circle at 12% 10%, #fff, transparent 26%),
+        radial-gradient(circle at 90% 18%, #f4cddd, transparent 28%),
+        linear-gradient(135deg, #fff8fb, #f5e6ef 48%, #e9e8f7);
+
+    min-height: 100vh;
+    background-attachment: fixed;
 }
 
-button,input,textarea,select {
- font:inherit;
+button,
+input,
+textarea,
+select {
+    font: inherit;
 }
 
 button {
- cursor:pointer;
+    cursor: pointer;
 }
 
+/* ==============================
+   NAVIGATION
+============================== */
+
 .topbar {
- position:sticky;
- top:0;
- z-index:10;
- padding:14px 5%;
- display:flex;
- align-items:center;
- justify-content:space-between;
- background:rgba(255,255,255,.52);
- backdrop-filter:blur(18px);
- border-bottom:1px solid rgba(255,255,255,.8);
+
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    padding: 15px 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: rgba(255,255,255,.65);
+    backdrop-filter: blur(20px);
+
+    border-bottom: 1px solid white;
 }
 
 .brand {
- font-family:'Playfair Display',serif;
- font-size:clamp(20px,3vw,29px);
- color:var(--deep);
- font-weight:700;
+
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(19px, 3vw, 29px);
+    font-weight: 700;
+
+    color: var(--deep);
 }
 
 .brand span {
- color:var(--gold);
+    color: var(--gold);
 }
 
 .nav {
- display:flex;
- gap:10px;
- align-items:center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .pill {
- border:1px solid white;
- border-radius:30px;
- padding:10px 17px;
- background:rgba(255,255,255,.6);
- color:var(--deep);
- font-weight:700;
- text-decoration:none;
- box-shadow:0 6px 20px #9d66801a;
+
+    border: 1px solid white;
+    border-radius: 30px;
+
+    padding: 11px 18px;
+
+    background: rgba(255,255,255,.75);
+
+    color: var(--deep);
+    font-weight: 700;
+
+    text-decoration: none;
+
+    box-shadow: 0 6px 20px #9d66801a;
+
+    transition: .25s;
+}
+
+.pill:hover {
+    transform: translateY(-2px);
 }
 
 .primary {
- background:linear-gradient(135deg,#c77b9e,#9d4e75);
- color:white;
- border:0;
+
+    background: linear-gradient(135deg, #c77b9e, #9d4e75);
+
+    color: white;
+    border: none;
 }
+
+/* ==============================
+   MAIN CONTAINER
+============================== */
 
 .wrap {
- width:min(1150px,92%);
- margin:auto;
+    width: min(1150px, 92%);
+    margin: auto;
 }
 
+/* ==============================
+   HERO SECTION
+============================== */
+
 .hero {
- padding:68px 0 48px;
- display:grid;
- grid-template-columns:1.1fr .9fr;
- gap:30px;
- align-items:center;
+
+    padding: 70px 0 50px;
+
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+
+    gap: 30px;
+    align-items: center;
 }
 
 .eyebrow {
- color:var(--rose);
- font-weight:700;
- letter-spacing:3px;
- text-transform:uppercase;
- font-size:12px;
+
+    color: var(--rose);
+
+    font-weight: 700;
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+    font-size: 12px;
 }
 
 .hero h1 {
- font:600 clamp(38px,6vw,68px)/1.08 'Playfair Display',serif;
- color:var(--deep);
- margin:14px 0;
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: clamp(40px, 6vw, 68px);
+
+    line-height: 1.08;
+
+    color: var(--deep);
+
+    margin: 16px 0;
 }
 
 .hero p {
- font-size:17px;
- line-height:1.8;
- max-width:520px;
- color:#705b68;
+
+    font-size: 17px;
+    line-height: 1.8;
+
+    max-width: 520px;
+
+    color: #705b68;
+
+    margin-bottom: 25px;
 }
 
 .hero-card {
- min-height:320px;
- border:1px solid white;
- border-radius:34px;
- background:linear-gradient(145deg,#ffffffa8,#f2cfe2a6);
- backdrop-filter:blur(18px);
- box-shadow:0 25px 70px #8f577329;
- display:grid;
- place-items:center;
- position:relative;
- overflow:hidden;
-}
 
-.hero-card:before,
-.hero-card:after {
- content:"";
- position:absolute;
- border-radius:50%;
- background:#ffffff55;
- filter:blur(2px);
-}
+    min-height: 330px;
 
-.hero-card:before {
- width:210px;
- height:210px;
- top:-60px;
- right:-30px;
-}
+    border: 1px solid white;
+    border-radius: 35px;
 
-.hero-card:after {
- width:150px;
- height:150px;
- bottom:-40px;
- left:-25px;
+    background: linear-gradient(145deg, #ffffffbd, #f2cfe2a6);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow: 0 25px 70px #8f577329;
+
+    display: grid;
+    place-items: center;
+
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-art {
- font-size:115px;
- filter:drop-shadow(0 18px 18px #81516b33);
- z-index:1;
+
+    font-size: 110px;
+
+    filter: drop-shadow(0 18px 18px #81516b33);
+
+    z-index: 1;
 }
 
 .hero-caption {
- position:absolute;
- bottom:22px;
- z-index:2;
- font-family:'Playfair Display';
- font-size:22px;
- color:var(--deep);
+
+    position: absolute;
+    bottom: 25px;
+
+    font-family: 'Playfair Display', serif;
+    font-size: 23px;
+
+    color: var(--deep);
 }
 
+/* ==============================
+   COLLECTIONS
+============================== */
+
 .section-head {
- display:flex;
- justify-content:space-between;
- align-items:end;
- gap:16px;
- margin:20px 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    gap: 15px;
+
+    margin: 25px 0;
 }
 
 .section-head h2 {
- font:600 34px 'Playfair Display';
- color:var(--deep);
- margin:0;
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: 35px;
+
+    color: var(--deep);
+
+    margin-top: 8px;
 }
 
 .muted {
- color:#866f7d;
+    color: #866f7d;
 }
 
 .filters {
- display:flex;
- gap:8px;
- flex-wrap:wrap;
- margin:18px 0 24px;
+
+    display: flex;
+    gap: 9px;
+
+    flex-wrap: wrap;
+
+    margin: 20px 0 25px;
 }
 
 .filter {
- border:1px solid white;
- background:#ffffff80;
- color:var(--deep);
- padding:9px 15px;
- border-radius:30px;
+
+    border: 1px solid white;
+
+    background: #ffffff80;
+
+    color: var(--deep);
+
+    padding: 10px 17px;
+
+    border-radius: 30px;
 }
 
 .filter.active {
- background:var(--deep);
- color:white;
+
+    background: var(--deep);
+    color: white;
 }
 
+/* ==============================
+   PRODUCT GRID
+============================== */
+
 .grid {
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:22px;
- margin-bottom:70px;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 23px;
+
+    margin-bottom: 75px;
 }
 
 .product {
- background:var(--glass);
- border:1px solid white;
- border-radius:24px;
- overflow:hidden;
- box-shadow:0 12px 35px #80516b16;
- backdrop-filter:blur(16px);
- transition:.2s;
+
+    background: var(--glass);
+
+    border: 1px solid white;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    box-shadow: 0 12px 35px #80516b16;
+
+    backdrop-filter: blur(18px);
+
+    transition: .25s;
 }
 
 .product:hover {
- transform:translateY(-4px);
+    transform: translateY(-5px);
 }
 
 .product img {
- width:100%;
- height:255px;
- object-fit:cover;
- display:block;
- background:#f2e4eb;
+
+    width: 100%;
+    height: 260px;
+
+    object-fit: cover;
+
+    display: block;
+
+    background: #f2e4eb;
 }
 
 .product-info {
- padding:17px;
+    padding: 18px;
 }
 
 .product-info h3 {
- margin:0 0 7px;
- color:var(--deep);
- font:600 21px 'Playfair Display';
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: 21px;
+
+    color: var(--deep);
+
+    margin-bottom: 8px;
 }
 
 .product-info p {
- margin:0 0 13px;
- color:#806d78;
- line-height:1.5;
- font-size:14px;
+
+    color: #806d78;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 15px;
 }
 
 .product-bottom {
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
 }
 
 .price {
- font-weight:700;
- color:#9a4f72;
- font-size:18px;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    color: #9a4f72;
 }
 
 .empty {
- grid-column:1/-1;
- text-align:center;
- padding:45px;
- background:#ffffff70;
- border-radius:20px;
- color:#806d78;
+
+    grid-column: 1/-1;
+
+    text-align: center;
+
+    padding: 45px;
+
+    background: #ffffff80;
+
+    border-radius: 20px;
+
+    color: #806d78;
 }
+
+/* ==============================
+   WHATSAPP FLOATING BUTTON
+============================== */
+
+.whatsapp-float {
+
+    position: fixed;
+
+    right: 22px;
+    bottom: 22px;
+
+    z-index: 20;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 13px 20px;
+
+    border-radius: 40px;
+
+    background: #25D366;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    box-shadow: 0 8px 25px #0002;
+
+    transition: .3s;
+}
+
+.whatsapp-float:hover {
+    transform: translateY(-5px);
+}
+
+.whatsapp-icon {
+    font-size: 23px;
+}
+
+/* ==============================
+   FOOTER
+============================== */
 
 footer {
- text-align:center;
- padding:28px;
- color:#8a7180;
- border-top:1px solid #fff8;
+
+    text-align: center;
+
+    padding: 30px;
+
+    color: #8a7180;
+
+    border-top: 1px solid #fff8;
 }
 
+/* ==============================
+   MODALS
+============================== */
+
 .modal {
- position:fixed;
- inset:0;
- z-index:30;
- background:#34202e88;
- backdrop-filter:blur(8px);
- display:none;
- align-items:center;
- justify-content:center;
- padding:18px;
+
+    position: fixed;
+    inset: 0;
+
+    z-index: 30;
+
+    background: #34202e88;
+
+    backdrop-filter: blur(9px);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px;
 }
 
 .modal.show {
- display:flex;
+    display: flex;
 }
 
 .modal-card {
- width:min(520px,100%);
- max-height:92vh;
- overflow:auto;
- background:#fffafc;
- border:1px solid white;
- border-radius:26px;
- padding:25px;
- box-shadow:0 24px 80px #32172b55;
+
+    width: min(520px, 100%);
+
+    max-height: 94vh;
+
+    overflow-y: auto;
+
+    background: #fffafc;
+
+    border: 1px solid white;
+
+    border-radius: 28px;
+
+    padding: 25px;
+
+    box-shadow: 0 24px 80px #32172b55;
 }
 
 .modal-card h2 {
- font:600 28px 'Playfair Display';
- color:var(--deep);
- margin:0 0 18px;
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: 28px;
+
+    color: var(--deep);
+
+    margin-bottom: 18px;
 }
 
+.admin-panel {
+    width: min(950px, 100%);
+}
+
+.admin-top {
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 25px;
+}
+
+.admin-actions {
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.close-button {
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    border: 1px solid white;
+
+    background: #f8e8f0;
+
+    color: var(--deep);
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+.close-button:hover {
+    background: var(--deep);
+    color: white;
+}
+
+/* ==============================
+   FORMS
+============================== */
+
 .field {
- display:grid;
- gap:7px;
- margin:12px 0;
+
+    display: grid;
+    gap: 8px;
+
+    margin: 14px 0;
 }
 
 .field label {
- font-size:13px;
- font-weight:700;
- color:#79596c;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #79596c;
 }
 
 .field input,
 .field textarea,
 .field select {
- width:100%;
- border:1px solid #ead6e1;
- border-radius:13px;
- padding:12px;
- background:white;
- outline:none;
- color:var(--ink);
+
+    width: 100%;
+
+    border: 1px solid #ead6e1;
+
+    border-radius: 15px;
+
+    padding: 14px;
+
+    background: white;
+
+    outline: none;
+
+    color: var(--ink);
+
+    font-size: 16px;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+    border-color: var(--rose);
 }
 
 .field textarea {
- min-height:80px;
- resize:vertical;
+    min-height: 95px;
+    resize: vertical;
 }
 
 .actions {
- display:flex;
- gap:9px;
- flex-wrap:wrap;
- margin-top:16px;
-}
 
-.admin-panel {
- width:min(900px,100%);
-}
+    display: flex;
 
-.admin-top {
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:12px;
-}
+    gap: 10px;
 
-.admin-list {
- display:grid;
- gap:10px;
- margin-top:20px;
-}
+    flex-wrap: wrap;
 
-.admin-row {
- display:flex;
- align-items:center;
- gap:13px;
- background:#fff;
- border:1px solid #f0dfe8;
- border-radius:15px;
- padding:9px;
-}
-
-.admin-row img {
- width:65px;
- height:65px;
- object-fit:cover;
- border-radius:10px;
-}
-
-.admin-row .grow {
- flex:1;
-}
-
-.small {
- font-size:13px;
- color:#856d7b;
-}
-
-.hidden {
- display:none!important;
+    margin-top: 18px;
 }
 
 .notice {
- padding:12px 14px;
- border-radius:12px;
- background:#f8eaf1;
- color:#78445e;
- font-size:13px;
- line-height:1.5;
- margin:12px 0;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background: #f8eaf1;
+
+    color: #78445e;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin: 15px 0;
+}
+
+.small {
+
+    font-size: 13px;
+
+    color: #856d7b;
+
+    line-height: 1.5;
 }
 
 .preview {
- max-width:100%;
- max-height:220px;
- object-fit:contain;
- border-radius:14px;
- margin-top:8px;
+
+    max-width: 100%;
+
+    max-height: 250px;
+
+    object-fit: contain;
+
+    border-radius: 15px;
+
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none !important;
 }
 
 .camera-help {
- font-size:12px;
- color:#856d7b;
+    font-size: 12px;
+    color: #856d7b;
 }
 
+/* ==============================
+   ADMIN PRODUCT LIST
+============================== */
+
+.admin-list {
+
+    display: grid;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+.admin-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    background: white;
+
+    border: 1px solid #f0dfe8;
+
+    border-radius: 16px;
+
+    padding: 10px;
+
+    flex-wrap: wrap;
+}
+
+.admin-row img {
+
+    width: 70px;
+    height: 70px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+}
+
+.admin-row .grow {
+    flex: 1;
+    min-width: 100px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eedde6;
+    margin: 25px 0;
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+============================== */
+
 @media(max-width:760px) {
- .hero {
-  grid-template-columns:1fr;
-  padding-top:42px;
- }
 
- .hero-card {
-  min-height:230px;
- }
+    .hero {
+        grid-template-columns: 1fr;
+        padding-top: 45px;
+    }
 
- .hero-art {
-  font-size:85px;
- }
+    .hero-card {
+        min-height: 240px;
+    }
 
- .grid {
-  grid-template-columns:repeat(2,1fr);
-  gap:13px;
- }
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 13px;
+    }
 
- .product img {
-  height:190px;
- }
+    .product img {
+        height: 190px;
+    }
 
- .product-info {
-  padding:13px;
- }
+    .product-info {
+        padding: 13px;
+    }
 
- .product-info h3 {
-  font-size:18px;
- }
+    .product-info h3 {
+        font-size: 18px;
+    }
 
- .topbar {
-  padding:12px 4%;
- }
+    .topbar {
+        padding: 12px 4%;
+    }
 
- .pill {
-  padding:9px 12px;
-  font-size:13px;
- }
+    .pill {
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
+    .admin-top {
+        align-items: flex-start;
+    }
 }
 
 @media(max-width:460px) {
- .grid {
-  grid-template-columns:1fr 1fr;
- }
 
- .product img {
-  height:155px;
- }
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
- .product-info p {
-  font-size:12px;
- }
+    .product img {
+        height: 155px;
+    }
 
- .product-bottom {
-  align-items:flex-start;
-  flex-direction:column;
- }
+    .product-info p {
+        font-size: 12px;
+    }
 
- .hero h1 {
-  font-size:43px;
- }
+    .product-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+    }
 
- .brand {
-  font-size:19px;
- }
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .brand {
+        font-size: 18px;
+    }
+
+    .whatsapp-float {
+        right: 13px;
+        bottom: 13px;
+    }
+
+    .section-head h2 {
+        font-size: 29px;
+    }
 }
+
 </style>
+
 </head>
 
 <body>
 
-<header class="topbar">
- <div class="brand">HARSHINI <span>BANGLE'S</span> STORE</div>
+<!-- ==============================
+     NAVIGATION
+============================== -->
 
- <nav class="nav">
-  <a class="pill" href="#collections">Collections</a>
-  <button class="pill" id="adminOpen">Admin Login</button>
- </nav>
+<header class="topbar">
+
+    <div class="brand">
+        HARSHINI <span>BANGLE'S</span> STORE
+    </div>
+
+    <nav class="nav">
+
+        <a href="#collections" class="pill">
+            Collections
+        </a>
+
+        <button class="pill" id="adminOpen">
+            Admin Login
+        </button>
+
+    </nav>
+
 </header>
+
+
+<!-- ==============================
+     CUSTOMER WEBSITE
+============================== -->
 
 <main class="wrap">
 
- <section class="hero">
+    <section class="hero">
 
-  <div>
-   <div class="eyebrow">Elegance in every detail</div>
+        <div>
 
-   <h1>Little things.<br>Beautiful sparkle.</h1>
+            <div class="eyebrow">
+                Elegance in every detail
+            </div>
 
-   <p>
-    Discover beautiful bangles, earrings, necklaces and jewellery
-    pieces chosen to make every moment special.
-   </p>
+            <h1>
+                Little things.<br>
+                Beautiful sparkle.
+            </h1>
 
-   <a class="pill primary" href="#collections">
-    Explore collections
-   </a>
-  </div>
+            <p>
+                Discover beautiful bangles, earrings,
+                necklaces and jewellery pieces chosen
+                to make every moment special.
+            </p>
 
-  <div class="hero-card">
-   <div class="hero-art">💎 ✨</div>
-   <div class="hero-caption">A little sparkle for you</div>
-  </div>
+            <a href="#collections" class="pill primary">
+                Explore Collections
+            </a>
 
- </section>
+        </div>
 
- <section id="collections">
+        <div class="hero-card">
 
-  <div class="section-head">
-   <div>
-    <div class="eyebrow">Made to make you shine</div>
-    <h2>Our Collection</h2>
-   </div>
+            <div class="hero-art">
+                💎 ✨
+            </div>
 
-   <span class="muted" id="countLabel"></span>
-  </div>
+            <div class="hero-caption">
+                A little sparkle for you
+            </div>
 
-  <div class="filters" id="filters"></div>
+        </div>
 
-  <div class="grid" id="productGrid">
-   <div class="empty">Loading collection...</div>
-  </div>
+    </section>
 
- </section>
+
+    <!-- COLLECTIONS -->
+
+    <section id="collections">
+
+        <div class="section-head">
+
+            <div>
+
+                <div class="eyebrow">
+                    Made to make you shine
+                </div>
+
+                <h2>Our Collection</h2>
+
+            </div>
+
+            <span class="muted" id="countLabel">
+                0 items
+            </span>
+
+        </div>
+
+        <div class="filters" id="filters"></div>
+
+        <div class="grid" id="productGrid">
+
+            <div class="empty">
+                Loading beautiful collections...
+            </div>
+
+        </div>
+
+    </section>
 
 </main>
 
+
+<!-- ==============================
+     FOOTER
+============================== -->
+
 <footer>
- HARSHINI BANGLE'S STORE · Made with love ✨
+
+    <h3 style="font-family:'Playfair Display'; color:#69334f;">
+        HARSHINI BANGLE'S STORE
+    </h3>
+
+    <p style="margin-top:10px;">
+        Beautiful collections. Beautiful moments. ❤️
+    </p>
+
+    <p style="margin-top:10px;">
+        © 2026 HARSHINI BANGLE'S STORE
+    </p>
+
 </footer>
 
 
-<!-- ADMIN LOGIN -->
+<!-- ==============================
+     FLOATING WHATSAPP BUTTON
+============================== -->
+
+<a
+    class="whatsapp-float"
+    id="floatingWhatsApp"
+    href="#"
+    target="_blank"
+    rel="noopener"
+>
+
+    <span class="whatsapp-icon">☏</span>
+
+    WhatsApp Us
+
+</a>
+
+
+<!-- ==============================
+     ADMIN LOGIN MODAL
+============================== -->
 
 <div class="modal" id="loginModal">
 
- <div class="modal-card">
+    <div class="modal-card">
 
-  <div class="admin-top">
-   <h2>Admin Login</h2>
-   <button class="pill" data-close="loginModal">✕</button>
-  </div>
+        <div class="admin-top">
 
-  <p class="muted">
-   Sign in with your authorised store admin account.
-  </p>
+            <h2>Admin Login</h2>
 
-  <form id="loginForm">
+            <button class="close-button" data-close="loginModal">
+                ✕
+            </button>
 
-   <div class="field">
-    <label>Admin email</label>
-    <input id="loginEmail" type="email" required placeholder="Your admin email">
-   </div>
+        </div>
 
-   <div class="field">
-    <label>Password</label>
-    <input id="loginPassword" type="password" required placeholder="Your password">
-   </div>
+        <p class="muted">
+            Sign in with your authorised store admin account.
+        </p>
 
-   <button class="pill primary" type="submit">
-    Sign in
-   </button>
+        <form id="loginForm">
 
-  </form>
+            <div class="field">
 
-  <div class="notice">
-   Admin access is protected by Supabase Authentication.
-  </div>
+                <label>Admin Email</label>
 
-  <p id="loginMessage" class="small"></p>
+                <input
+                    id="loginEmail"
+                    type="email"
+                    required
+                    placeholder="Enter admin email"
+                >
 
- </div>
+            </div>
+
+            <div class="field">
+
+                <label>Password</label>
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    required
+                    placeholder="Enter password"
+                >
+
+            </div>
+
+            <button class="pill primary" type="submit">
+                Sign In
+            </button>
+
+        </form>
+
+        <div class="notice">
+            Only authorised store administrators can manage products.
+        </div>
+
+        <p id="loginMessage" class="small"></p>
+
+    </div>
+
 </div>
 
 
-<!-- ADMIN DASHBOARD -->
+<!-- ==============================
+     ADMIN DASHBOARD
+============================== -->
 
 <div class="modal" id="adminModal">
 
- <div class="modal-card admin-panel">
+    <div class="modal-card admin-panel">
 
-  <div class="admin-top">
+        <div class="admin-top">
 
-   <div>
-    <div class="eyebrow">Store management</div>
-    <h2>Admin Dashboard</h2>
-   </div>
+            <div>
 
-   <button class="pill" id="logoutBtn">
-    Log out
-   </button>
+                <div class="eyebrow">
+                    Store Management
+                </div>
 
-  </div>
+                <h2>Admin Dashboard</h2>
 
-  <div class="notice">
-   Take a new photo using your phone camera or choose a photo from your gallery.
-  </div>
+            </div>
 
-  <form id="productForm">
+            <div class="admin-actions">
 
-   <input type="hidden" id="productId">
+                <!-- CLOSE DASHBOARD -->
 
-   <div class="field">
-    <label>Product name</label>
-    <input id="pName" required maxlength="90" placeholder="Golden stone earrings">
-   </div>
+                <button
+                    class="close-button"
+                    id="closeAdminBtn"
+                    title="Back to Store"
+                    aria-label="Close admin dashboard"
+                >
+                    ✕
+                </button>
 
-   <div class="field">
-    <label>Collection</label>
+                <!-- LOGOUT -->
 
-    <select id="pCategory">
-     <option>Bangles</option>
-     <option>Earrings</option>
-     <option>Necklaces</option>
-     <option>Bracelets</option>
-     <option>Other</option>
-    </select>
-   </div>
+                <button class="pill" id="logoutBtn">
+                    Log out
+                </button>
 
-   <div class="field">
-    <label>Price (₹) — optional</label>
-    <input id="pPrice" type="number" min="0" step="1" placeholder="499">
-   </div>
+            </div>
 
-   <div class="field">
-    <label>Description</label>
-    <textarea id="pDescription" maxlength="500"></textarea>
-   </div>
+        </div>
 
-   <div class="field">
-    <label>Take a new photo using camera</label>
 
-    <input
-     id="cameraInput"
-     type="file"
-     accept="image/*"
-     capture="environment"
-    >
+        <div class="notice">
 
-    <span class="camera-help">
-     On supported phones this opens the rear camera.
-    </span>
-   </div>
+            Take a new photograph using your phone camera
+            or choose a photograph from your gallery.
 
-   <div class="field">
-    <label>Or choose from gallery</label>
-    <input id="galleryInput" type="file" accept="image/*">
-   </div>
+            Your products will be visible to customers
+            after successful saving.
 
-   <img id="photoPreview" class="preview hidden" alt="Photo preview">
+        </div>
 
-   <div class="actions">
 
-    <button class="pill primary" type="submit" id="saveProductBtn">
-     Save product
-    </button>
+        <!-- ADD PRODUCT FORM -->
 
-    <button class="pill" type="button" id="resetForm">
-     Clear form
-    </button>
+        <form id="productForm">
 
-   </div>
+            <input
+                type="hidden"
+                id="productId"
+            >
 
-   <p id="saveMessage" class="small"></p>
 
-  </form>
+            <div class="field">
 
-  <hr style="border:0;border-top:1px solid #eedde6;margin:24px 0">
+                <label>Product Name</label>
 
-  <h2 style="font-size:23px">Manage products</h2>
+                <input
+                    id="pName"
+                    type="text"
+                    required
+                    maxlength="90"
+                    placeholder="Example: Golden Stone Earrings"
+                >
 
-  <div class="admin-list" id="adminList"></div>
+            </div>
 
- </div>
+
+            <div class="field">
+
+                <label>Collection</label>
+
+                <select id="pCategory">
+
+                    <option value="Bangles">Bangles</option>
+
+                    <option value="Earrings">Earrings</option>
+
+                    <option value="Necklaces">Necklaces</option>
+
+                    <option value="Bracelets">Bracelets</option>
+
+                    <option value="Other">Other</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Price (₹) - Optional</label>
+
+                <input
+                    id="pPrice"
+                    type="number"
+                    min="0"
+                    step="1"
+                    placeholder="499"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Description</label>
+
+                <textarea
+                    id="pDescription"
+                    maxlength="500"
+                    placeholder="Enter product details..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- CAMERA UPLOAD -->
+
+            <div class="field">
+
+                <label>
+                    📸 Take a New Photo Using Camera
+                </label>
+
+                <input
+                    id="cameraInput"
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                >
+
+                <span class="camera-help">
+                    On supported phones, this opens the rear camera.
+                </span>
+
+            </div>
+
+
+            <!-- GALLERY UPLOAD -->
+
+            <div class="field">
+
+                <label>
+                    🖼️ Choose Photo From Gallery
+                </label>
+
+                <input
+                    id="galleryInput"
+                    type="file"
+                    accept="image/*"
+                >
+
+            </div>
+
+
+            <!-- IMAGE PREVIEW -->
+
+            <img
+                id="photoPreview"
+                class="preview hidden"
+                alt="Selected product preview"
+            >
+
+
+            <div class="actions">
+
+                <button
+                    class="pill primary"
+                    type="submit"
+                    id="saveProductBtn"
+                >
+                    Save Product
+                </button>
+
+                <button
+                    class="pill"
+                    type="button"
+                    id="resetForm"
+                >
+                    Clear Form
+                </button>
+
+            </div>
+
+            <p id="saveMessage" class="small"></p>
+
+        </form>
+
+
+        <hr>
+
+
+        <!-- MANAGE PRODUCTS -->
+
+        <h2 style="font-size:25px;">
+            Manage Products
+        </h2>
+
+        <p class="small">
+            View, edit or delete your uploaded products.
+        </p>
+
+        <div class="admin-list" id="adminList">
+
+            <p class="small">
+                Loading products...
+            </p>
+
+        </div>
+
+    </div>
+
 </div>
 
 
+<!-- ==============================
+     JAVASCRIPT
+============================== -->
+
 <script>
 
-// SUPABASE CONNECTION
+/* =================================
+   SUPABASE CONNECTION
+================================= */
 
 const SUPABASE_URL =
 "https://keqkranpdzybgqdcgzwq.supabase.co";
@@ -716,644 +1273,1100 @@ const SUPABASE_URL =
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable__23R8hcrWkdtNhP_6dqe_A_HvcqKP39";
 
-// CHANGE THIS TO YOUR STORE WHATSAPP NUMBER
+
+/* =================================
+   STORE SETTINGS
+================================= */
+
+// CHANGE THIS TO YOUR ACTUAL STORE WHATSAPP NUMBER.
+// Include country code. India = 91.
+
 const WHATSAPP_NUMBER = "919948841425";
 
+
+// YOUR AUTHORISED ADMIN EMAIL
+
+const ADMIN_EMAIL = "shashankbachu08@gmail.com";
+
+
+/* =================================
+   DATABASE SETTINGS
+================================= */
+
 const TABLE = "products";
+
 const BUCKET = "product-photos";
 
+
 const db = window.supabase.createClient(
- SUPABASE_URL,
- SUPABASE_PUBLISHABLE_KEY
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
 );
 
+
 let currentUser = null;
+
 let products = [];
+
 let selectedFile = null;
+
 let activeCategory = "All";
+
 
 const $ = id => document.getElementById(id);
 
 
-// MESSAGES
+/* =================================
+   HTML SECURITY HELPERS
+================================= */
 
-function message(id,text,isError=false) {
- $(id).textContent = text;
+function escapeHtml(value = "") {
 
- $(id).style.color = isError
-  ? "#b3264b"
-  : "#6e5362";
+    return String(value).replace(/[&<>"']/g, char => ({
+
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+
+    }[char]));
+
 }
 
 
-// MODALS
+/* =================================
+   STATUS MESSAGES
+================================= */
+
+function message(id, text, isError = false) {
+
+    $(id).textContent = text;
+
+    $(id).style.color = isError
+        ? "#b3264b"
+        : "#6e5362";
+
+}
+
+
+/* =================================
+   MODAL FUNCTIONS
+================================= */
 
 function openModal(id) {
- $(id).classList.add("show");
+
+    $(id).classList.add("show");
+
 }
+
 
 function closeModal(id) {
- $(id).classList.remove("show");
+
+    $(id).classList.remove("show");
+
 }
+
+
+// CLOSE LOGIN WINDOW
 
 document.querySelectorAll("[data-close]").forEach(button => {
- button.addEventListener("click",() => {
-  closeModal(button.dataset.close);
- });
-});
 
+    button.addEventListener("click", () => {
 
-// ADMIN LOGIN
+        closeModal(button.dataset.close);
 
-$("adminOpen").addEventListener("click",async()=>{
-
- const {data:{session}} = await db.auth.getSession();
-
- if(session) {
-  currentUser = session.user;
-  await openAdmin();
- } else {
-  openModal("loginModal");
- }
+    });
 
 });
 
 
-$("loginForm").addEventListener("submit",async e=>{
+/* =================================
+   WHATSAPP SETTINGS
+================================= */
 
- e.preventDefault();
+function updateWhatsApp() {
 
- message("loginMessage","Signing in...");
+    const text =
+        "Hello Harshini Bangle's Store! I would like to know about your jewellery collections.";
 
- const {data,error} = await db.auth.signInWithPassword({
-
-  email:$("loginEmail").value.trim(),
-
-  password:$("loginPassword").value
-
- });
-
- if(error) {
-  message("loginMessage",error.message,true);
-  return;
- }
-
- currentUser = data.user;
-
- closeModal("loginModal");
-
- await openAdmin();
-
-});
-
-
-// LOGOUT
-
-$("logoutBtn").addEventListener("click",async()=>{
-
- await db.auth.signOut();
-
- currentUser = null;
-
- closeModal("adminModal");
-
-});
-
-
-// LOAD PRODUCTS
-
-async function loadProducts() {
-
- const {data,error} = await db
-  .from(TABLE)
-  .select("*")
-  .order("created_at",{ascending:false});
-
- if(error) {
-
-  $("productGrid").innerHTML =
-   '<div class="empty">Could not load products. Check Supabase database setup.</div>';
-
-  console.error(error);
-
-  return;
- }
-
- products = data || [];
-
- renderProducts();
-
- if(currentUser) {
-  renderAdminList();
- }
+    $("floatingWhatsApp").href =
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 
 }
 
-
-// DISPLAY PRODUCTS
-
-function renderProducts() {
-
- const categories = [
-  "All",
-  ...new Set(products.map(p=>p.category).filter(Boolean))
- ];
-
- $("filters").innerHTML = categories.map(category => `
-
-  <button class="filter ${activeCategory===category?"active":""}"
-   data-cat="${escapeHtml(category)}">
-
-   ${escapeHtml(category)}
-
-  </button>
-
- `).join("");
-
- $("filters").querySelectorAll("button").forEach(button=>{
-
-  button.onclick = ()=>{
-
-   activeCategory = button.dataset.cat;
-
-   renderProducts();
-
-  };
-
- });
-
- const shown = activeCategory==="All"
-  ? products
-  : products.filter(p=>p.category===activeCategory);
-
- $("countLabel").textContent =
-  `${products.length} items`;
-
- $("productGrid").innerHTML = shown.length
-
- ? shown.map(p=>`
-
-  <article class="product">
-
-   <img
-    src="${escapeAttr(p.image_url)}"
-    alt="${escapeAttr(p.name)}"
-    loading="lazy"
-   >
-
-   <div class="product-info">
-
-    <h3>${escapeHtml(p.name)}</h3>
-
-    <p>
-     ${escapeHtml(p.description || p.category || "")}
-    </p>
-
-    <div class="product-bottom">
-
-     <span class="price">
-
-      ${
-       p.price !== null && p.price !== ""
-       ? "₹"+Number(p.price).toLocaleString("en-IN")
-       : "Price on enquiry"
-      }
-
-     </span>
-
-     <a
-      class="pill primary"
-      target="_blank"
-      rel="noopener"
-      href="${whatsappLink(p)}"
-     >
-      Enquire
-     </a>
-
-    </div>
-
-   </div>
-
-  </article>
-
- `).join("")
-
- : '<div class="empty">New arrivals coming soon. ✨</div>';
-
-}
-
-
-// WHATSAPP
 
 function whatsappLink(product) {
 
- const text =
-  `Hello! I am interested in ${product.name}. Is it available?`;
+    const text =
+        `Hello! I am interested in ${product.name}. Is it available?`;
 
- return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+
+}
+
+
+updateWhatsApp();
+
+
+/* =================================
+   ADMIN LOGIN
+================================= */
+
+$("adminOpen").addEventListener("click", async () => {
+
+    const { data, error } = await db.auth.getSession();
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+
+    }
+
+    if (data.session) {
+
+        currentUser = data.session.user;
+
+        await openAdmin();
+
+    } else {
+
+        openModal("loginModal");
+
+    }
+
+});
+
+
+/* =================================
+   LOGIN FORM
+================================= */
+
+$("loginForm").addEventListener("submit", async event => {
+
+    event.preventDefault();
+
+    message("loginMessage", "Checking login...");
+
+    const email = $("loginEmail").value.trim();
+
+    const password = $("loginPassword").value;
+
+
+    if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+
+        message(
+            "loginMessage",
+            "This email is not authorised for admin access.",
+            true
+        );
+
+        return;
+
+    }
+
+
+    const { data, error } = await db.auth.signInWithPassword({
+
+        email: email,
+
+        password: password
+
+    });
+
+
+    if (error) {
+
+        message("loginMessage", error.message, true);
+
+        return;
+
+    }
+
+
+    currentUser = data.user;
+
+
+    if (currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+
+        await db.auth.signOut();
+
+        currentUser = null;
+
+        message(
+            "loginMessage",
+            "This account is not authorised.",
+            true
+        );
+
+        return;
+
+    }
+
+
+    closeModal("loginModal");
+
+    $("loginForm").reset();
+
+    await openAdmin();
+
+});
+
+
+/* =================================
+   CLOSE ADMIN DASHBOARD
+================================= */
+
+$("closeAdminBtn").addEventListener("click", () => {
+
+    closeModal("adminModal");
+
+    // Admin stays logged in.
+    // Products remain saved.
+
+});
+
+
+/* =================================
+   ADMIN LOGOUT
+================================= */
+
+$("logoutBtn").addEventListener("click", async () => {
+
+    const { error } = await db.auth.signOut();
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+
+    }
+
+    currentUser = null;
+
+    closeModal("adminModal");
+
+    resetProductForm();
+
+});
+
+
+/* =================================
+   LOAD PRODUCTS
+================================= */
+
+async function loadProducts() {
+
+    const { data, error } = await db
+        .from(TABLE)
+        .select("*")
+        .order("created_at", { ascending: false });
+
+
+    if (error) {
+
+        console.error(error);
+
+        $("productGrid").innerHTML = `
+            <div class="empty">
+                Unable to load products.
+                Please check your Supabase configuration.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    products = data || [];
+
+    renderProducts();
+
+
+    if (currentUser) {
+
+        renderAdminList();
+
+    }
 
 }
 
 
-// HTML SECURITY HELPERS
+/* =================================
+   DISPLAY CUSTOMER PRODUCTS
+================================= */
 
-function escapeHtml(value="") {
+function renderProducts() {
 
- return String(value).replace(/[&<>"']/g,char=>({
+    const categories = [
 
-  "&":"&amp;",
-  "<":"&lt;",
-  ">":"&gt;",
-  '"':"&quot;",
-  "'":"&#39;"
+        "All",
 
- }[char]));
+        ...new Set(
+            products
+                .map(product => product.category)
+                .filter(Boolean)
+        )
+
+    ];
+
+
+    $("filters").innerHTML = categories.map(category => `
+
+        <button
+            class="filter ${activeCategory === category ? "active" : ""}"
+            data-cat="${escapeHtml(category)}"
+        >
+
+            ${escapeHtml(category)}
+
+        </button>
+
+    `).join("");
+
+
+    $("filters").querySelectorAll("button").forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            activeCategory = button.dataset.cat;
+
+            renderProducts();
+
+        });
+
+    });
+
+
+    const shown = activeCategory === "All"
+
+        ? products
+
+        : products.filter(product =>
+            product.category === activeCategory
+        );
+
+
+    $("countLabel").textContent =
+        `${products.length} items`;
+
+
+    if (shown.length === 0) {
+
+        $("productGrid").innerHTML = `
+
+            <div class="empty">
+
+                New arrivals coming soon. ✨
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    $("productGrid").innerHTML = shown.map(product => `
+
+        <article class="product">
+
+            <img
+                src="${escapeHtml(product.image_url)}"
+                alt="${escapeHtml(product.name)}"
+                loading="lazy"
+            >
+
+            <div class="product-info">
+
+                <h3>
+                    ${escapeHtml(product.name)}
+                </h3>
+
+                <p>
+                    ${escapeHtml(product.description || product.category || "")}
+                </p>
+
+                <div class="product-bottom">
+
+                    <span class="price">
+
+                        ${
+                            product.price !== null &&
+                            product.price !== ""
+
+                            ? "₹" + Number(product.price).toLocaleString("en-IN")
+
+                            : "Price on enquiry"
+                        }
+
+                    </span>
+
+                    <a
+                        class="pill primary"
+                        href="${whatsappLink(product)}"
+                        target="_blank"
+                        rel="noopener"
+                    >
+
+                        Enquire
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `).join("");
 
 }
 
-function escapeAttr(value="") {
- return escapeHtml(value);
-}
 
-
-// ADMIN DASHBOARD
+/* =================================
+   OPEN ADMIN DASHBOARD
+================================= */
 
 async function openAdmin() {
 
- openModal("adminModal");
+    if (!currentUser ||
+        currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
 
- await loadProducts();
+        alert("Admin authentication required.");
 
- renderAdminList();
+        return;
+
+    }
+
+    openModal("adminModal");
+
+    await loadProducts();
+
+    renderAdminList();
 
 }
 
 
-// ADMIN PRODUCT LIST
+/* =================================
+   DISPLAY ADMIN PRODUCTS
+================================= */
 
 function renderAdminList() {
 
- $("adminList").innerHTML = products.length
+    if (!products.length) {
 
- ? products.map(p=>`
+        $("adminList").innerHTML = `
 
-  <div class="admin-row">
+            <p class="small">
+                No products added yet.
+            </p>
 
-   <img src="${escapeAttr(p.image_url)}" alt="">
+        `;
 
-   <div class="grow">
+        return;
 
-    <b>${escapeHtml(p.name)}</b>
-
-    <div class="small">
-     ${escapeHtml(p.category)} ·
-     ${p.price ? "₹"+p.price : "No price"}
-    </div>
-
-   </div>
-
-   <button class="pill" data-edit="${p.id}">
-    Edit
-   </button>
-
-   <button class="pill" data-delete="${p.id}">
-    Delete
-   </button>
-
-  </div>
-
- `).join("")
-
- : '<p class="small">No products added yet.</p>';
+    }
 
 
- $("adminList").querySelectorAll("[data-edit]").forEach(button=>{
+    $("adminList").innerHTML = products.map(product => `
 
-  button.onclick = ()=>editProduct(button.dataset.edit);
+        <div class="admin-row">
 
- });
+            <img
+                src="${escapeHtml(product.image_url)}"
+                alt="${escapeHtml(product.name)}"
+            >
+
+            <div class="grow">
+
+                <b>
+                    ${escapeHtml(product.name)}
+                </b>
+
+                <div class="small">
+
+                    ${escapeHtml(product.category)}
+
+                    ·
+
+                    ${
+                        product.price !== null
+                        ? "₹" + product.price
+                        : "No price"
+                    }
+
+                </div>
+
+            </div>
+
+            <button
+                class="pill"
+                data-edit="${escapeHtml(product.id)}"
+            >
+
+                Edit
+
+            </button>
+
+            <button
+                class="pill"
+                data-delete="${escapeHtml(product.id)}"
+            >
+
+                Delete
+
+            </button>
+
+        </div>
+
+    `).join("");
 
 
- $("adminList").querySelectorAll("[data-delete]").forEach(button=>{
+    $("adminList").querySelectorAll("[data-edit]").forEach(button => {
 
-  button.onclick = ()=>deleteProduct(button.dataset.delete);
+        button.addEventListener("click", () => {
 
- });
+            editProduct(button.dataset.edit);
+
+        });
+
+    });
+
+
+    $("adminList").querySelectorAll("[data-delete]").forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            deleteProduct(button.dataset.delete);
+
+        });
+
+    });
 
 }
 
 
-// RESET FORM
+/* =================================
+   RESET PRODUCT FORM
+================================= */
 
 function resetProductForm() {
 
- $("productForm").reset();
+    $("productForm").reset();
 
- $("productId").value = "";
+    $("productId").value = "";
 
- selectedFile = null;
+    selectedFile = null;
 
- $("photoPreview").classList.add("hidden");
+    $("photoPreview").classList.add("hidden");
 
- $("photoPreview").src = "";
+    $("photoPreview").src = "";
 
- $("saveProductBtn").textContent = "Save product";
+    $("saveProductBtn").textContent = "Save Product";
 
- message("saveMessage","");
+    $("saveProductBtn").disabled = false;
+
+    message("saveMessage", "");
 
 }
 
-$("resetForm").onclick = resetProductForm;
+
+$("resetForm").addEventListener("click", resetProductForm);
 
 
-// PHOTO SELECTION
+/* =================================
+   CAMERA AND GALLERY UPLOAD
+================================= */
 
 function choosePhoto(file) {
 
- if(!file) return;
+    if (!file) return;
 
- if(!file.type.startsWith("image/")) {
 
-  message("saveMessage","Please choose an image file.",true);
+    if (!file.type.startsWith("image/")) {
 
-  return;
+        message(
+            "saveMessage",
+            "Please select a valid image.",
+            true
+        );
 
- }
+        return;
 
- if(file.size > 12*1024*1024) {
+    }
 
-  message("saveMessage","Please choose a photo smaller than 12 MB.",true);
 
-  return;
+    if (file.size > 12 * 1024 * 1024) {
 
- }
+        message(
+            "saveMessage",
+            "Please select an image smaller than 12 MB.",
+            true
+        );
 
- selectedFile = file;
+        return;
 
- $("photoPreview").src = URL.createObjectURL(file);
+    }
 
- $("photoPreview").classList.remove("hidden");
+
+    selectedFile = file;
+
+
+    $("photoPreview").src =
+        URL.createObjectURL(file);
+
+    $("photoPreview").classList.remove("hidden");
+
+
+    message(
+        "saveMessage",
+        "Photo selected successfully. You can now save the product."
+    );
 
 }
 
 
-// CAMERA
+/* =================================
+   CAMERA INPUT
+================================= */
 
-$("cameraInput").addEventListener("change",e=>{
+$("cameraInput").addEventListener("change", event => {
 
- if(e.target.files[0]) {
+    const file = event.target.files[0];
 
-  $("galleryInput").value = "";
+    if (file) {
 
-  choosePhoto(e.target.files[0]);
+        $("galleryInput").value = "";
 
- }
+        choosePhoto(file);
 
-});
-
-
-// GALLERY
-
-$("galleryInput").addEventListener("change",e=>{
-
- if(e.target.files[0]) {
-
-  $("cameraInput").value = "";
-
-  choosePhoto(e.target.files[0]);
-
- }
+    }
 
 });
 
 
-// UPLOAD PHOTO
+/* =================================
+   GALLERY INPUT
+================================= */
+
+$("galleryInput").addEventListener("change", event => {
+
+    const file = event.target.files[0];
+
+    if (file) {
+
+        $("cameraInput").value = "";
+
+        choosePhoto(file);
+
+    }
+
+});
+
+
+/* =================================
+   UPLOAD IMAGE TO SUPABASE
+================================= */
 
 async function uploadPhoto(file) {
 
- const ext = (file.name.split(".").pop() || "jpg")
-  .toLowerCase()
-  .replace(/[^a-z0-9]/g,"") || "jpg";
+    const extension =
+        (file.name.split(".").pop() || "jpg")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "") || "jpg";
 
- const path =
-  `${Date.now()}-${crypto.randomUUID()}.${ext}`;
 
- const {error} = await db.storage
-  .from(BUCKET)
-  .upload(path,file,{
+    const path =
+        `${Date.now()}-${crypto.randomUUID()}.${extension}`;
 
-   cacheControl:"3600",
 
-   upsert:false,
+    const { error } = await db.storage
+        .from(BUCKET)
+        .upload(path, file, {
 
-   contentType:file.type
+            cacheControl: "3600",
 
-  });
+            upsert: false,
 
- if(error) throw error;
+            contentType: file.type
 
- return {
+        });
 
-  path,
 
-  url:db.storage
-   .from(BUCKET)
-   .getPublicUrl(path).data.publicUrl
+    if (error) {
 
- };
+        throw error;
+
+    }
+
+
+    const { data } = db.storage
+        .from(BUCKET)
+        .getPublicUrl(path);
+
+
+    return {
+
+        path: path,
+
+        url: data.publicUrl
+
+    };
 
 }
 
 
-// SAVE PRODUCT
+/* =================================
+   SAVE OR UPDATE PRODUCT
+================================= */
 
-$("productForm").addEventListener("submit",async e=>{
+$("productForm").addEventListener("submit", async event => {
 
- e.preventDefault();
+    event.preventDefault();
 
- if(!currentUser) {
 
-  message("saveMessage","Please sign in again.",true);
+    if (!currentUser ||
+        currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
 
-  return;
+        message(
+            "saveMessage",
+            "Please sign in using the authorised admin account.",
+            true
+        );
 
- }
+        return;
 
- const id = $("productId").value;
+    }
 
- const old = products.find(p=>String(p.id)===String(id));
 
- $("saveProductBtn").disabled = true;
+    const id = $("productId").value;
 
- message("saveMessage","Saving product...");
 
- try {
+    const oldProduct = products.find(product =>
+        String(product.id) === String(id)
+    );
 
-  let image_url = old?.image_url || "";
 
-  let image_path = old?.image_path || null;
+    $("saveProductBtn").disabled = true;
 
-  if(selectedFile) {
+    message("saveMessage", "Saving product. Please wait...");
 
-   const uploaded = await uploadPhoto(selectedFile);
 
-   image_url = uploaded.url;
+    try {
 
-   image_path = uploaded.path;
+        let image_url = oldProduct?.image_url || "";
 
-  }
+        let image_path = oldProduct?.image_path || null;
 
-  if(!image_url) {
 
-   throw new Error("Please take or choose a product photo.");
+        if (selectedFile) {
 
-  }
+            const uploaded = await uploadPhoto(selectedFile);
 
-  const payload = {
+            image_url = uploaded.url;
 
-   name:$("pName").value.trim(),
+            image_path = uploaded.path;
 
-   category:$("pCategory").value,
+        }
 
-   price:$("pPrice").value
-    ? Number($("pPrice").value)
-    : null,
 
-   description:$("pDescription").value.trim(),
+        if (!image_url) {
 
-   image_url,
+            throw new Error(
+                "Please take a photo or choose an image."
+            );
 
-   image_path
+        }
 
-  };
 
-  let result;
+        const payload = {
 
-  if(id) {
+            name: $("pName").value.trim(),
 
-   result = await db
-    .from(TABLE)
-    .update(payload)
-    .eq("id",id);
+            category: $("pCategory").value,
 
-  } else {
+            price: $("pPrice").value
+                ? Number($("pPrice").value)
+                : null,
 
-   result = await db
-    .from(TABLE)
-    .insert(payload);
+            description: $("pDescription").value.trim(),
 
-  }
+            image_url: image_url,
 
-  if(result.error) throw result.error;
+            image_path: image_path
 
-  message("saveMessage","Product saved successfully!");
+        };
 
-  resetProductForm();
 
-  await loadProducts();
+        let result;
 
- } catch(error) {
 
-  message(
-   "saveMessage",
-   error.message || "Could not save product.",
-   true
-  );
+        if (id) {
 
- } finally {
+            result = await db
+                .from(TABLE)
+                .update(payload)
+                .eq("id", id);
 
-  $("saveProductBtn").disabled = false;
+        } else {
 
- }
+            result = await db
+                .from(TABLE)
+                .insert(payload);
+
+        }
+
+
+        if (result.error) {
+
+            throw result.error;
+
+        }
+
+
+        // Delete previous image after a successful replacement.
+
+        if (
+            id &&
+            selectedFile &&
+            oldProduct?.image_path
+        ) {
+
+            await db.storage
+                .from(BUCKET)
+                .remove([oldProduct.image_path]);
+
+        }
+
+
+        message(
+            "saveMessage",
+            "Product saved successfully! ❤️"
+        );
+
+
+        resetProductForm();
+
+        await loadProducts();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        message(
+            "saveMessage",
+            error.message || "Unable to save product.",
+            true
+        );
+
+    } finally {
+
+        $("saveProductBtn").disabled = false;
+
+    }
 
 });
 
 
-// EDIT PRODUCT
+/* =================================
+   EDIT PRODUCT
+================================= */
 
 function editProduct(id) {
 
- const p = products.find(x=>String(x.id)===String(id));
+    const product = products.find(item =>
+        String(item.id) === String(id)
+    );
 
- if(!p) return;
 
- $("productId").value = p.id;
+    if (!product) return;
 
- $("pName").value = p.name;
 
- $("pCategory").value = p.category || "Other";
+    $("productId").value = product.id;
 
- $("pPrice").value = p.price ?? "";
+    $("pName").value = product.name;
 
- $("pDescription").value = p.description || "";
+    $("pCategory").value = product.category || "Other";
 
- $("photoPreview").src = p.image_url;
+    $("pPrice").value = product.price ?? "";
 
- $("photoPreview").classList.remove("hidden");
+    $("pDescription").value = product.description || "";
 
- selectedFile = null;
 
- $("saveProductBtn").textContent = "Update product";
+    $("photoPreview").src = product.image_url;
 
- window.scrollTo({top:0,behavior:"smooth"});
+    $("photoPreview").classList.remove("hidden");
+
+
+    selectedFile = null;
+
+
+    $("cameraInput").value = "";
+
+    $("galleryInput").value = "";
+
+
+    $("saveProductBtn").textContent = "Update Product";
+
+
+    message(
+        "saveMessage",
+        "Editing product. Select a new photo only if you want to replace the current image."
+    );
+
+
+    $("productForm").scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "start"
+
+    });
 
 }
 
 
-// DELETE PRODUCT
+/* =================================
+   DELETE PRODUCT
+================================= */
 
 async function deleteProduct(id) {
 
- const p = products.find(x=>String(x.id)===String(id));
+    const product = products.find(item =>
+        String(item.id) === String(id)
+    );
 
- if(!p || !confirm(`Delete "${p.name}"?`)) return;
 
- const {error} = await db
-  .from(TABLE)
-  .delete()
-  .eq("id",id);
+    if (!product) return;
 
- if(error) {
 
-  alert(error.message);
+    const confirmed = confirm(
+        `Are you sure you want to delete ${product.name}?`
+    );
 
-  return;
 
- }
+    if (!confirmed) return;
 
- if(p.image_path) {
 
-  await db.storage
-   .from(BUCKET)
-   .remove([p.image_path]);
+    const { error } = await db
+        .from(TABLE)
+        .delete()
+        .eq("id", id);
 
- }
 
- await loadProducts();
+    if (error) {
+
+        alert("Unable to delete product: " + error.message);
+
+        return;
+
+    }
+
+
+    if (product.image_path) {
+
+        const { error: storageError } = await db.storage
+            .from(BUCKET)
+            .remove([product.image_path]);
+
+        if (storageError) {
+
+            console.error("Image cleanup failed:", storageError);
+
+        }
+
+    }
+
+
+    await loadProducts();
+
+    resetProductForm();
+
+
+    alert("Product deleted successfully.");
 
 }
 
 
-// CHECK LOGIN SESSION
+/* =================================
+   AUTHENTICATION SESSION
+================================= */
 
-db.auth.getSession().then(({data})=>{
+async function checkSession() {
 
- currentUser = data.session?.user || null;
+    const { data, error } = await db.auth.getSession();
+
+
+    if (error) {
+
+        console.error(error);
+
+        return;
+
+    }
+
+
+    currentUser = data.session?.user || null;
+
+
+    if (
+        currentUser &&
+        currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()
+    ) {
+
+        await db.auth.signOut();
+
+        currentUser = null;
+
+    }
+
+}
+
+
+db.auth.onAuthStateChange((event, session) => {
+
+    currentUser = session?.user || null;
+
+    if (
+        currentUser &&
+        currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()
+    ) {
+
+        db.auth.signOut();
+
+        currentUser = null;
+
+    }
 
 });
 
-db.auth.onAuthStateChange((_event,session)=>{
 
- currentUser = session?.user || null;
+/* =================================
+   START WEBSITE
+================================= */
 
-});
+async function startWebsite() {
+
+    await checkSession();
+
+    updateWhatsApp();
+
+    await loadProducts();
+
+}
 
 
-// START WEBSITE
-
-loadProducts();
+startWebsite();
 
 </script>
 
 </body>
+
 </html>
