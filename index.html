@@ -5,2342 +5,675 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HARSHINI LADIES EMPORIUM</title>
 <meta name="theme-color" content="#f5dce9">
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-
 <style>
-:root {
-    --pink: #f5dce9;
-    --rose: #b85f86;
-    --deep: #69334f;
-    --gold: #c59a55;
-    --ink: #392b35;
-    --glass: rgba(255,255,255,.72);
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: 'DM Sans', sans-serif;
-    color: var(--ink);
-    background:
-        radial-gradient(circle at 12% 10%, #fff, transparent 26%),
-        radial-gradient(circle at 90% 18%, #f4cddd, transparent 28%),
-        linear-gradient(135deg, #fff8fb, #f5e6ef 48%, #e9e8f7);
-    min-height: 100vh;
-    background-attachment: fixed;
-}
-
-button, input, textarea, select {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-.topbar {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    padding: 14px 5%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    background: rgba(255,255,255,.78);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid white;
-}
-
-.brand {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(18px, 3vw, 28px);
-    font-weight: 700;
-    color: var(--deep);
-}
-
-.brand span {
-    color: var(--gold);
-}
-
-.nav {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    flex-wrap: wrap;
-}
-
-.pill {
-    border: 1px solid white;
-    border-radius: 30px;
-    padding: 10px 16px;
-    background: rgba(255,255,255,.85);
-    color: var(--deep);
-    font-weight: 700;
-    text-decoration: none;
-    box-shadow: 0 6px 20px #9d66801a;
-    transition: .2s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-}
-
-.pill:hover {
-    transform: translateY(-2px);
-}
-
-.primary {
-    background: linear-gradient(135deg, #c77b9e, #9d4e75);
-    color: white;
-    border: none;
-}
-
-.wrap {
-    width: min(1150px, 92%);
-    margin: auto;
-}
-
-.hero {
-    padding: 65px 0 45px;
-    display: grid;
-    grid-template-columns: 1.1fr .9fr;
-    gap: 30px;
-    align-items: center;
-}
-
-.eyebrow {
-    color: var(--rose);
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-size: 12px;
-}
-
-.hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(40px, 6vw, 68px);
-    line-height: 1.08;
-    color: var(--deep);
-    margin: 16px 0;
-}
-
-.hero p {
-    font-size: 17px;
-    line-height: 1.8;
-    max-width: 520px;
-    color: #705b68;
-    margin-bottom: 25px;
-}
-
-.hero-card {
-    min-height: 330px;
-    border: 1px solid white;
-    border-radius: 35px;
-    background: linear-gradient(145deg, #ffffffbd, #f2cfe2a6);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 25px 70px #8f577329;
-    display: grid;
-    place-items: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-art {
-    font-size: 110px;
-    filter: drop-shadow(0 18px 18px #81516b33);
-}
-
-.hero-caption {
-    position: absolute;
-    bottom: 25px;
-    font-family: 'Playfair Display', serif;
-    font-size: 23px;
-    color: var(--deep);
-}
-
-.section-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    gap: 15px;
-    margin: 25px 0;
-}
-
-.section-head h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 35px;
-    color: var(--deep);
-    margin-top: 8px;
-}
-
-.muted {
-    color: #866f7d;
-}
-
-.filters {
-    display: flex;
-    gap: 9px;
-    flex-wrap: wrap;
-    margin: 20px 0 25px;
-}
-
-.filter {
-    border: 1px solid white;
-    background: #ffffffa6;
-    color: var(--deep);
-    padding: 10px 17px;
-    border-radius: 30px;
-}
-
-.filter.active {
-    background: var(--deep);
-    color: white;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 23px;
-    margin-bottom: 75px;
-}
-
-.product {
-    background: var(--glass);
-    border: 1px solid white;
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 12px 35px #80516b16;
-    backdrop-filter: blur(18px);
-    transition: .25s;
-}
-
-.product:hover {
-    transform: translateY(-5px);
-}
-
-.product-image-wrap {
-    height: 260px;
-    position: relative;
-    background: #f2e4eb;
-    overflow: hidden;
-}
-
-.product-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    cursor: zoom-in;
-}
-
-.image-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 0;
-    border-radius: 50%;
-    width: 34px;
-    height: 34px;
-    background: #ffffffd9;
-    color: var(--deep);
-    font-size: 20px;
-    box-shadow: 0 3px 12px #0002;
-}
-
-.image-arrow.prev {
-    left: 9px;
-}
-
-.image-arrow.next {
-    right: 9px;
-}
-
-.image-count {
-    position: absolute;
-    bottom: 9px;
-    right: 10px;
-    background: #392b35b8;
-    color: white;
-    border-radius: 20px;
-    padding: 4px 9px;
-    font-size: 11px;
-}
-
-.wish-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: 0;
-    border-radius: 50%;
-    width: 39px;
-    height: 39px;
-    background: #ffffffdf;
-    font-size: 21px;
-    color: #a44c70;
-    box-shadow: 0 3px 12px #0002;
-}
-
-.product-info {
-    padding: 18px;
-}
-
-.product-info h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 21px;
-    color: var(--deep);
-    margin-bottom: 8px;
-}
-
-.product-info p {
-    color: #806d78;
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    min-height: 42px;
-}
-
-.product-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.price {
-    font-size: 18px;
-    font-weight: 700;
-    color: #9a4f72;
-}
-
-.empty {
-    grid-column: 1/-1;
-    text-align: center;
-    padding: 45px;
-    background: #ffffffa6;
-    border-radius: 20px;
-    color: #806d78;
-}
-
-.whatsapp-float {
-    position: fixed;
-    right: 22px;
-    bottom: 22px;
-    z-index: 20;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 13px 20px;
-    border-radius: 40px;
-    background: #25D366;
-    color: white;
-    text-decoration: none;
-    font-weight: 700;
-    box-shadow: 0 8px 25px #0002;
-    transition: .3s;
-}
-
-.whatsapp-float:hover {
-    transform: translateY(-5px);
-}
-
-footer {
-    text-align: center;
-    padding: 30px;
-    color: #8a7180;
-    border-top: 1px solid #fff8;
-}
-
-.modal {
-    position: fixed;
-    inset: 0;
-    z-index: 30;
-    background: #34202eaa;
-    backdrop-filter: blur(9px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-}
-
-.modal.show {
-    display: flex;
-}
-
-.modal-card {
-    width: min(520px, 100%);
-    max-height: 94vh;
-    overflow-y: auto;
-    background: #fffafc;
-    border: 1px solid white;
-    border-radius: 28px;
-    padding: 25px;
-    box-shadow: 0 24px 80px #32172b55;
-}
-
-.modal-card h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    color: var(--deep);
-    margin-bottom: 18px;
-}
-
-.admin-panel {
-    width: min(950px, 100%);
-}
-
-.admin-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 25px;
-}
-
-.admin-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.close-button {
-    width: 43px;
-    height: 43px;
-    border-radius: 50%;
-    border: 1px solid white;
-    background: #f8e8f0;
-    color: var(--deep);
-    font-size: 22px;
-    font-weight: 700;
-}
-
-.close-button:hover {
-    background: var(--deep);
-    color: white;
-}
-
-.field {
-    display: grid;
-    gap: 8px;
-    margin: 14px 0;
-}
-
-.field label {
-    font-size: 14px;
-    font-weight: 700;
-    color: #79596c;
-}
-
-.field input,
-.field textarea,
-.field select {
-    width: 100%;
-    border: 1px solid #ead6e1;
-    border-radius: 15px;
-    padding: 13px;
-    background: white;
-    outline: none;
-    color: var(--ink);
-    font-size: 16px;
-}
-
-.field input:focus,
-.field textarea:focus,
-.field select:focus {
-    border-color: var(--rose);
-}
-
-.field textarea {
-    min-height: 95px;
-    resize: vertical;
-}
-
-.actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 18px;
-}
-
-.notice {
-    padding: 15px;
-    border-radius: 15px;
-    background: #f8eaf1;
-    color: #78445e;
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 15px 0;
-}
-
-.small {
-    font-size: 13px;
-    color: #856d7b;
-    line-height: 1.5;
-}
-
-.preview-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 10px;
-    margin-top: 12px;
-}
-
-.preview-item {
-    position: relative;
-    height: 95px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #f2e4eb;
-}
-
-.preview-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.preview-item button {
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    border: 0;
-    border-radius: 50%;
-    background: #fff;
-    color: #a22;
-    padding: 3px 7px;
-    font-weight: bold;
-}
-
-.admin-list {
-    display: grid;
-    gap: 12px;
-    margin-top: 20px;
-}
-
-.admin-row {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    background: white;
-    border: 1px solid #f0dfe8;
-    border-radius: 16px;
-    padding: 10px;
-    flex-wrap: wrap;
-}
-
-.admin-row img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-.admin-row .grow {
-    flex: 1;
-    min-width: 100px;
-}
-
-hr {
-    border: 0;
-    border-top: 1px solid #eedde6;
-    margin: 25px 0;
-}
-
-.lightbox {
-    z-index: 60;
-    background: #160d14ed;
-}
-
-.lightbox-card {
-    width: min(900px, 96vw);
-    height: min(90vh, 800px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.lightbox-card img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: 12px;
-}
-
-.lightbox-close {
-    position: absolute;
-    right: 0;
-    top: -5px;
-}
-
-.lightbox-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 0;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    background: #ffffffdf;
-    color: var(--deep);
-    font-size: 25px;
-}
-
-.lightbox-arrow.prev {
-    left: 8px;
-}
-
-.lightbox-arrow.next {
-    right: 8px;
-}
-
-@media(max-width:760px) {
-    .hero {
-        grid-template-columns: 1fr;
-        padding-top: 45px;
-    }
-
-    .hero-card {
-        min-height: 240px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 13px;
-    }
-
-    .product-image-wrap {
-        height: 190px;
-    }
-
-    .product-info {
-        padding: 13px;
-    }
-
-    .product-info h3 {
-        font-size: 18px;
-    }
-
-    .topbar {
-        padding: 12px 4%;
-    }
-
-    .pill {
-        padding: 9px 12px;
-        font-size: 13px;
-    }
-
-    .admin-top {
-        align-items: flex-start;
-    }
-}
-
-@media(max-width:460px) {
-    .grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .product-image-wrap {
-        height: 155px;
-    }
-
-    .product-info p {
-        font-size: 12px;
-        min-height: 48px;
-    }
-
-    .product-bottom {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .hero h1 {
-        font-size: 43px;
-    }
-
-    .brand {
-        font-size: 17px;
-    }
-
-    .nav {
-        gap: 5px;
-    }
-
-    .whatsapp-float {
-        right: 13px;
-        bottom: 13px;
-    }
-
-    .section-head h2 {
-        font-size: 29px;
-    }
-}
+:root{--pink:#f5dce9;--rose:#b85f86;--deep:#69334f;--gold:#c59a55;--ink:#392b35;--glass:rgba(255,255,255,.72)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);background:radial-gradient(circle at 12% 10%,#fff,transparent 26%),radial-gradient(circle at 90% 18%,#f4cddd,transparent 28%),linear-gradient(135deg,#fff8fb,#f5e6ef 48%,#e9e8f7);min-height:100vh;background-attachment:fixed}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+.topbar{position:sticky;top:0;z-index:10;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.78);backdrop-filter:blur(20px);border-bottom:1px solid white}
+.brand{font-family:'Playfair Display',serif;font-size:clamp(18px,3vw,28px);font-weight:700;color:var(--deep)}
+.brand span{color:var(--gold)}
+.nav{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.pill{border:1px solid white;border-radius:30px;padding:10px 16px;background:rgba(255,255,255,.85);color:var(--deep);font-weight:700;text-decoration:none;box-shadow:0 6px 20px #9d66801a;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.pill:hover{transform:translateY(-2px)}
+.primary{background:linear-gradient(135deg,#c77b9e,#9d4e75);color:white;border:none}
+.wrap{width:min(1150px,92%);margin:auto}
+.hero{padding:65px 0 45px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+.eyebrow{color:var(--rose);font-weight:700;letter-spacing:3px;text-transform:uppercase;font-size:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(40px,6vw,68px);line-height:1.08;color:var(--deep);margin:16px 0}
+.hero p{font-size:17px;line-height:1.8;max-width:520px;color:#705b68;margin-bottom:25px}
+.hero-card{min-height:330px;border:1px solid white;border-radius:35px;background:linear-gradient(145deg,#ffffffbd,#f2cfe2a6);backdrop-filter:blur(20px);box-shadow:0 25px 70px #8f577329;display:grid;place-items:center;position:relative;overflow:hidden}
+.hero-art{font-size:110px;filter:drop-shadow(0 18px 18px #81516b33)}
+.hero-caption{position:absolute;bottom:25px;font-family:'Playfair Display',serif;font-size:23px;color:var(--deep)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:25px 0}
+.section-head h2{font-family:'Playfair Display',serif;font-size:35px;color:var(--deep);margin-top:8px}
+.muted{color:#866f7d}.filters{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0 25px}
+.filter{border:1px solid white;background:#ffffffa6;color:var(--deep);padding:10px 17px;border-radius:30px}
+.filter.active{background:var(--deep);color:white}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:23px;margin-bottom:75px}
+.product{background:var(--glass);border:1px solid white;border-radius:25px;overflow:hidden;box-shadow:0 12px 35px #80516b16;backdrop-filter:blur(18px);transition:.25s}
+.product:hover{transform:translateY(-5px)}
+.product-image-wrap{height:260px;position:relative;background:#f2e4eb;overflow:hidden}
+.product-image{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}
+.image-arrow{position:absolute;top:50%;transform:translateY(-50%);border:0;border-radius:50%;width:34px;height:34px;background:#ffffffd9;color:var(--deep);font-size:20px;box-shadow:0 3px 12px #0002}
+.image-arrow.prev{left:9px}.image-arrow.next{right:9px}
+.image-count{position:absolute;bottom:9px;right:10px;background:#392b35b8;color:white;border-radius:20px;padding:4px 9px;font-size:11px}
+.wish-btn{position:absolute;top:10px;right:10px;border:0;border-radius:50%;width:39px;height:39px;background:#ffffffdf;font-size:21px;color:#a44c70;box-shadow:0 3px 12px #0002}
+.product-info{padding:18px}.product-info h3{font-family:'Playfair Display',serif;font-size:21px;color:var(--deep);margin-bottom:8px}
+.product-info p{color:#806d78;font-size:14px;line-height:1.6;margin-bottom:15px;min-height:42px}
+.product-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.price{font-size:18px;font-weight:700;color:#9a4f72}
+.empty{grid-column:1/-1;text-align:center;padding:45px;background:#ffffffa6;border-radius:20px;color:#806d78}
+.whatsapp-float{position:fixed;right:22px;bottom:22px;z-index:20;display:flex;align-items:center;gap:10px;padding:13px 20px;border-radius:40px;background:#25D366;color:white;text-decoration:none;font-weight:700;box-shadow:0 8px 25px #0002;transition:.3s}
+.whatsapp-float:hover{transform:translateY(-5px)}
+footer{text-align:center;padding:30px;color:#8a7180;border-top:1px solid #fff8}
+.modal{position:fixed;inset:0;z-index:30;background:#34202eaa;backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:15px}
+.modal.show{display:flex}
+.modal-card{width:min(520px,100%);max-height:94vh;overflow-y:auto;background:#fffafc;border:1px solid white;border-radius:28px;padding:25px;box-shadow:0 24px 80px #32172b55}
+.modal-card h2{font-family:'Playfair Display',serif;font-size:28px;color:var(--deep);margin-bottom:18px}
+.admin-panel{width:min(950px,100%)}
+.admin-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:25px}
+.admin-actions{display:flex;gap:10px;align-items:center}
+.close-button{width:43px;height:43px;border-radius:50%;border:1px solid white;background:#f8e8f0;color:var(--deep);font-size:22px;font-weight:700}
+.close-button:hover{background:var(--deep);color:white}
+.field{display:grid;gap:8px;margin:14px 0}
+.field label{font-size:14px;font-weight:700;color:#79596c}
+.field input,.field textarea,.field select{width:100%;border:1px solid #ead6e1;border-radius:15px;padding:13px;background:white;outline:none;color:var(--ink);font-size:16px}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--rose)}
+.field textarea{min-height:95px;resize:vertical}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.notice{padding:15px;border-radius:15px;background:#f8eaf1;color:#78445e;font-size:14px;line-height:1.6;margin:15px 0}
+.small{font-size:13px;color:#856d7b;line-height:1.5}
+.preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-top:12px}
+.preview-item{position:relative;height:95px;border-radius:12px;overflow:hidden;background:#f2e4eb}
+.preview-item img{width:100%;height:100%;object-fit:cover}
+.preview-item button{position:absolute;right:4px;top:4px;border:0;border-radius:50%;background:#fff;color:#a22;padding:3px 7px;font-weight:bold}
+.admin-list{display:grid;gap:12px;margin-top:20px}
+.admin-row{display:flex;align-items:center;gap:13px;background:white;border:1px solid #f0dfe8;border-radius:16px;padding:10px;flex-wrap:wrap}
+.admin-row img{width:70px;height:70px;object-fit:cover;border-radius:12px}
+.admin-row .grow{flex:1;min-width:100px}
+hr{border:0;border-top:1px solid #eedde6;margin:25px 0}
+.lightbox{z-index:60;background:#160d14ed}
+.lightbox-card{width:min(900px,96vw);height:min(90vh,800px);display:flex;align-items:center;justify-content:center;position:relative}
+.lightbox-card img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px}
+.lightbox-close{position:absolute;right:0;top:-5px}
+.lightbox-arrow{position:absolute;top:50%;transform:translateY(-50%);border:0;border-radius:50%;width:44px;height:44px;background:#ffffffdf;color:var(--deep);font-size:25px}
+.lightbox-arrow.prev{left:8px}.lightbox-arrow.next{right:8px}
+.language-switch{display:flex;gap:7px;align-items:center;flex-shrink:0}
+.lang-btn{border:1px solid #d9a0b8;border-radius:22px;padding:9px 13px;background:#fff;color:var(--deep);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.lang-btn.active{background:linear-gradient(135deg,#c77b9e,#9d4e75);color:#fff;border-color:#b85f86}
+.lang-btn:focus-visible{outline:3px solid #c59a55;outline-offset:2px}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:45px}.hero-card{min-height:240px}.grid{grid-template-columns:repeat(2,1fr);gap:13px}.product-image-wrap{height:190px}.product-info{padding:13px}.product-info h3{font-size:18px}.topbar{padding:12px 4%}.pill{padding:9px 12px;font-size:13px}.admin-top{align-items:flex-start}}
+@media(max-width:460px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-image-wrap{height:155px}.product-info p{font-size:12px;min-height:48px}.product-bottom{align-items:flex-start;flex-direction:column}.hero h1{font-size:43px}.brand{font-size:17px}.whatsapp-float{right:13px;bottom:13px}.section-head h2{font-size:29px}.nav{gap:5px}}
 </style>
 </head>
-
 <body>
-
 <header class="topbar">
-
-    <div class="brand">
-        HARSHINI <span>LADIES EMPORIUM</span>
-    </div>
-
-    <nav class="nav">
-        <a href="#collections" class="pill">Collections</a>
-
-        <button class="pill" id="wishlistNav">
-            ♡ Wishlist <span id="wishCount">0</span>
-        </button>
-
-        <button class="pill" id="adminOpen">
-            Admin Login
-        </button>
-    </nav>
-
+  <div class="brand">HARSHINI <span>LADIES EMPORIUM</span></div>
+  <div class="language-switch" role="group" aria-label="Choose language">
+    <button type="button" class="lang-btn" id="englishBtn" aria-pressed="true">ENGLISH</button>
+    <button type="button" class="lang-btn" id="teluguBtn" aria-pressed="false">తెలుగు</button>
+  </div>
+  <nav class="nav">
+    <a href="#collections" class="pill" data-i18n="collections">Collections</a>
+    <button class="pill" id="wishlistNav"><span data-i18n="wishlist">♡ Wishlist</span> <span id="wishCount">0</span></button>
+    <button class="pill" id="adminOpen" data-i18n="adminLogin">Admin Login</button>
+  </nav>
 </header>
 
 <main class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow" data-i18n="eyebrow">Elegance in every detail</div>
+      <h1 data-i18n="heroTitle">Little things.<br>Beautiful sparkle.</h1>
+      <p data-i18n="heroText">Discover beautiful bangles, earrings, necklaces and jewellery pieces chosen to make every moment special.</p>
+      <a href="#collections" class="pill primary" data-i18n="explore">Explore Collections</a>
+    </div>
+    <div class="hero-card"><div class="hero-art">💎 ✨</div><div class="hero-caption" data-i18n="heroCaption">A little sparkle for you</div></div>
+  </section>
 
-    <section class="hero">
-
-        <div>
-            <div class="eyebrow">Elegance in every detail</div>
-
-            <h1>
-                Little things.<br>
-                Beautiful sparkle.
-            </h1>
-
-            <p>
-                Discover beautiful bangles, earrings, necklaces
-                and jewellery pieces chosen to make every moment special.
-            </p>
-
-            <a href="#collections" class="pill primary">
-                Explore Collections
-            </a>
-        </div>
-
-        <div class="hero-card">
-            <div class="hero-art">💎 ✨</div>
-            <div class="hero-caption">A little sparkle for you</div>
-        </div>
-
-    </section>
-
-    <section id="collections">
-
-        <div class="section-head">
-
-            <div>
-                <div class="eyebrow">Made to make you shine</div>
-                <h2 id="collectionTitle">Our Collection</h2>
-            </div>
-
-            <span class="muted" id="countLabel">0 items</span>
-
-        </div>
-
-        <div class="filters" id="filters"></div>
-
-        <div class="grid" id="productGrid">
-            <div class="empty">Loading beautiful collections...</div>
-        </div>
-
-    </section>
-
+  <section id="collections">
+    <div class="section-head">
+      <div><div class="eyebrow" data-i18n="collectionEyebrow">Made to make you shine</div><h2 id="collectionTitle" data-i18n="ourCollection">Our Collection</h2></div>
+      <span class="muted" id="countLabel">0 items</span>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="productGrid"><div class="empty">Loading beautiful collections...</div></div>
+  </section>
 </main>
 
 <footer>
-
-    <h3 style="font-family:'Playfair Display';color:#69334f">
-        HARSHINI LADIES EMPORIUM
-    </h3>
-
-    <p style="margin-top:10px">
-        Beautiful collections. Beautiful moments. ❤️
-    </p>
-
-    <p style="margin-top:10px">
-        © 2026 HARSHINI LADIES EMPORIUM
-    </p>
-
+  <h3 style="font-family:'Playfair Display';color:#69334f">HARSHINI LADIES EMPORIUM</h3>
+  <p style="margin-top:10px" data-i18n="footerLine">Beautiful collections. Beautiful moments. ❤️</p>
+  <p style="margin-top:10px">© 2026 HARSHINI LADIES EMPORIUM</p>
 </footer>
 
-<a class="whatsapp-float" id="floatingWhatsApp"
-   href="#" target="_blank" rel="noopener">
-    ☏ WhatsApp Us
-</a>
+<a class="whatsapp-float" id="floatingWhatsApp" href="#" target="_blank" rel="noopener"><span data-i18n="whatsappUs">☏ WhatsApp Us</span></a>
 
-
-<!-- ADMIN LOGIN -->
-
+<!-- Admin sign-in -->
 <div class="modal" id="loginModal">
-
-    <div class="modal-card">
-
-        <div class="admin-top">
-
-            <h2>Admin Login</h2>
-
-            <button class="close-button"
-                    data-close="loginModal"
-                    aria-label="Close">
-                ✕
-            </button>
-
-        </div>
-
-        <p class="muted">
-            Sign in with your authorised store admin account.
-        </p>
-
-        <form id="loginForm">
-
-            <div class="field">
-                <label for="loginEmail">Admin Email</label>
-                <input id="loginEmail" type="email"
-                       required placeholder="Enter admin email">
-            </div>
-
-            <div class="field">
-                <label for="loginPassword">Password</label>
-                <input id="loginPassword" type="password"
-                       required placeholder="Enter password">
-            </div>
-
-            <button class="pill primary" type="submit">
-                Sign In
-            </button>
-
-        </form>
-
-        <div class="notice">
-            Only authorised store administrators can manage products.
-        </div>
-
-        <p id="loginMessage" class="small"></p>
-
-    </div>
-
+  <div class="modal-card">
+    <div class="admin-top"><h2>Admin Login</h2><button class="close-button" data-close="loginModal" aria-label="Close">✕</button></div>
+    <p class="muted">Sign in with your authorised store admin account.</p>
+    <form id="loginForm">
+      <div class="field"><label for="loginEmail">Admin Email</label><input id="loginEmail" type="email" required placeholder="Enter admin email"></div>
+      <div class="field"><label for="loginPassword">Password</label><input id="loginPassword" type="password" required placeholder="Enter password"></div>
+      <button class="pill primary" type="submit">Sign In</button>
+    </form>
+    <div class="notice">Only authorised store administrators can manage products.</div>
+    <p id="loginMessage" class="small"></p>
+  </div>
 </div>
 
-
-<!-- ADMIN DASHBOARD -->
-
+<!-- Admin dashboard -->
 <div class="modal" id="adminModal">
-
-    <div class="modal-card admin-panel">
-
-        <div class="admin-top">
-
-            <div>
-                <div class="eyebrow">Store Management</div>
-                <h2>Admin Dashboard</h2>
-            </div>
-
-            <div class="admin-actions">
-
-                <button class="close-button"
-                        id="closeAdminBtn"
-                        title="Back to Store"
-                        aria-label="Close admin dashboard">
-                    ✕
-                </button>
-
-                <button class="pill" id="logoutBtn">
-                    Log out
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="notice">
-            Add a product with several photos. You can take photos
-            with your phone camera or select multiple pictures from
-            your gallery. The ✕ button returns to the store without
-            logging you out.
-        </div>
-
-        <form id="productForm">
-
-            <input type="hidden" id="productId">
-
-            <div class="field">
-                <label for="pName">Product Name</label>
-                <input id="pName" required maxlength="90"
-                       placeholder="Example: Golden Stone Earrings">
-            </div>
-
-            <div class="field">
-                <label for="pCategory">Collection</label>
-
-                <select id="pCategory">
-                    <option>Bangles</option>
-                    <option>Earrings</option>
-                    <option>Necklaces</option>
-                    <option>Bracelets</option>
-                    <option>Other</option>
-                </select>
-            </div>
-
-            <div class="field">
-                <label for="pPrice">Price (₹) - Optional</label>
-                <input id="pPrice" type="number"
-                       min="0" step="1" placeholder="499">
-            </div>
-
-            <div class="field">
-                <label for="pDescription">Description</label>
-                <textarea id="pDescription" maxlength="500"
-                          placeholder="Enter product details..."></textarea>
-            </div>
-
-            <div class="field">
-
-                <label for="cameraInput">
-                    📸 Take photos using camera
-                </label>
-
-                <input id="cameraInput"
-                       type="file"
-                       accept="image/*"
-                       capture="environment">
-
-                <span class="small">
-                    On supported phones, this opens the rear camera.
-                    Take another photo to add more pictures.
-                </span>
-
-            </div>
-
-            <div class="field">
-
-                <label for="galleryInput">
-                    🖼️ Choose multiple photos from gallery
-                </label>
-
-                <input id="galleryInput"
-                       type="file"
-                       accept="image/*"
-                       multiple>
-
-                <span class="small">
-                    You can select several pictures at once.
-                    Up to 8 photos per product.
-                </span>
-
-            </div>
-
-            <div id="photoPreviews" class="preview-grid"></div>
-
-            <p id="photoHelp" class="small">
-                No new photos selected. When editing, the current
-                photos will be kept unless you select replacement photos.
-            </p>
-
-            <div class="actions">
-
-                <button class="pill primary"
-                        type="submit"
-                        id="saveProductBtn">
-                    Save Product
-                </button>
-
-                <button class="pill"
-                        type="button"
-                        id="resetForm">
-                    Clear Form
-                </button>
-
-            </div>
-
-            <p id="saveMessage" class="small" aria-live="polite"></p>
-
-        </form>
-
-        <hr>
-
-        <h2 style="font-size:25px">Manage Products</h2>
-
-        <p class="small">
-            View, edit or delete your uploaded products.
-        </p>
-
-        <div class="admin-list" id="adminList">
-            <p class="small">Loading products...</p>
-        </div>
-
+  <div class="modal-card admin-panel">
+    <div class="admin-top">
+      <div><div class="eyebrow">Store Management</div><h2>Admin Dashboard</h2></div>
+      <div class="admin-actions"><button class="close-button" id="closeAdminBtn" title="Back to Store" aria-label="Close admin dashboard">✕</button><button class="pill" id="logoutBtn">Log out</button></div>
     </div>
-
+    <div class="notice">Add a product with several photos. You can take photos with your phone camera or select multiple pictures from your gallery. The ✕ button returns to the store without logging you out.</div>
+    <form id="productForm">
+      <input type="hidden" id="productId">
+      <div class="field"><label for="pName">Product Name</label><input id="pName" required maxlength="90" placeholder="Example: Golden Stone Earrings"></div>
+      <div class="field"><label for="pCategory">Collection</label><select id="pCategory"><option>Bangles</option><option>Earrings</option><option>Necklaces</option><option>Bracelets</option><option>Other</option></select></div>
+      <div class="field"><label for="pPrice">Price (₹) - Optional</label><input id="pPrice" type="number" min="0" step="1" placeholder="499"></div>
+      <div class="field"><label for="pDescription">Description</label><textarea id="pDescription" maxlength="500" placeholder="Enter product details..."></textarea></div>
+      <div class="field"><label for="cameraInput">📸 Take photos using camera</label><input id="cameraInput" type="file" accept="image/*" capture="environment"><span class="small">On supported phones, this opens the rear camera. Take another photo to add more pictures.</span></div>
+      <div class="field"><label for="galleryInput">🖼️ Choose multiple photos from gallery</label><input id="galleryInput" type="file" accept="image/*" multiple><span class="small">You can select several pictures at once. Up to 8 photos per product.</span></div>
+      <div id="photoPreviews" class="preview-grid"></div>
+      <p id="photoHelp" class="small">No new photos selected. When editing, the current photos will be kept unless you select replacement photos.</p>
+      <div class="actions"><button class="pill primary" type="submit" id="saveProductBtn">Save Product</button><button class="pill" type="button" id="resetForm">Clear Form</button></div>
+      <p id="saveMessage" class="small" aria-live="polite"></p>
+    </form>
+    <hr>
+    <h2 style="font-size:25px">Manage Products</h2>
+    <p class="small">View, edit or delete your uploaded products.</p>
+    <div class="admin-list" id="adminList"><p class="small">Loading products...</p></div>
+  </div>
 </div>
 
-
-<!-- PRODUCT IMAGE ZOOM -->
-
+<!-- Product image zoom -->
 <div class="modal lightbox" id="lightbox">
-
-    <div class="lightbox-card">
-
-        <button class="close-button lightbox-close"
-                id="lightboxClose"
-                aria-label="Close image">
-            ✕
-        </button>
-
-        <button class="lightbox-arrow prev"
-                id="lightboxPrev"
-                aria-label="Previous image">
-            ‹
-        </button>
-
-        <img id="lightboxImage" alt="Product enlarged">
-
-        <button class="lightbox-arrow next"
-                id="lightboxNext"
-                aria-label="Next image">
-            ›
-        </button>
-
-    </div>
-
+  <div class="lightbox-card">
+    <button class="close-button lightbox-close" id="lightboxClose" aria-label="Close image">✕</button>
+    <button class="lightbox-arrow prev" id="lightboxPrev" aria-label="Previous image">‹</button>
+    <img id="lightboxImage" alt="Product enlarged">
+    <button class="lightbox-arrow next" id="lightboxNext" aria-label="Next image">›</button>
+  </div>
 </div>
-
 
 <script>
-
 /* =========================
    STORE CONFIGURATION
 ========================= */
-
-const SUPABASE_URL =
-"https://keqkranpdzybgqdcgzwq.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable__23R8hcrWkdtNhP_6dqe_A_HvcqKP39";
-
-const WHATSAPP_NUMBER = "919989398033";
-
+const SUPABASE_URL = "https://keqkranpdzybgqdcgzwq.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__23R8hcrWkdtNhP_6dqe_A_HvcqKP39";
+const WHATSAPP_NUMBER = "919989398033"; // India country code + 9989398033
 const ADMIN_EMAIL = "shashankbachu08@gmail.com";
-
 const TABLE = "products";
-
 const BUCKET = "product-photos";
-
 const MAX_PHOTOS = 8;
-
 const MAX_FILE_SIZE = 12 * 1024 * 1024;
 
-const db = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
-
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 const $ = id => document.getElementById(id);
 
 let currentUser = null;
-
 let products = [];
-
 let selectedFiles = [];
-
 let activeCategory = "All";
-
 let wishlistOnly = false;
-
-let wishlist = new Set(
-    JSON.parse(localStorage.getItem("harshiniWishlist") || "[]")
-);
-
+let wishlist = new Set(JSON.parse(localStorage.getItem("harshiniWishlist") || "[]"));
 let lightboxImages = [];
-
 let lightboxIndex = 0;
-
 const cardImageIndexes = {};
 
+/* =========================
+   ENGLISH / TELUGU LANGUAGE
+========================= */
+let currentLanguage = localStorage.getItem("harshiniLanguage") || "en";
+const translations = {
+  en: {
+    collections:"Collections", wishlist:"♡ Wishlist", adminLogin:"Admin Login",
+    eyebrow:"Elegance in every detail", heroTitle:"Little things.<br>Beautiful sparkle.",
+    heroText:"Discover beautiful bangles, earrings, necklaces and jewellery pieces chosen to make every moment special.",
+    explore:"Explore Collections", heroCaption:"A little sparkle for you",
+    collectionEyebrow:"Made to make you shine", ourCollection:"Our Collection",
+    footerLine:"Beautiful collections. Beautiful moments. ❤️", whatsappUs:"☏ WhatsApp Us",
+    all:"All Products", emptyWishlist:"Your wishlist is empty. Tap the ♡ on a product to save it.",
+    noProducts:"New arrivals coming soon. ✨", noImage:"No image", priceEnquiry:"Price on enquiry",
+    enquire:"Enquire", itemSingular:"item", itemPlural:"items", whatsappProduct:"Hello! I am interested in {name}. Is it available?",
+    whatsappGeneral:"Hello Harshini Ladies Emporium! I would like to know about your jewellery collections."
+  },
+  te: {
+    collections:"కలెక్షన్లు", wishlist:"♡ ఇష్టమైనవి", adminLogin:"అడ్మిన్ లాగిన్",
+    eyebrow:"ప్రతి అలంకరణలో అందం", heroTitle:"చిన్న చిన్న అందాలు.<br>మెరిసే ప్రత్యేకత.",
+    heroText:"మీ ప్రతి సందర్భాన్ని ప్రత్యేకంగా మార్చే అందమైన గాజులు, చెవి దిద్దులు, హారాలు మరియు ఇతర ఆభరణాలను చూడండి.",
+    explore:"కలెక్షన్లను చూడండి", heroCaption:"మీ కోసం ఒక చిన్న మెరుపు",
+    collectionEyebrow:"మీ అందాన్ని మరింత పెంచుకోండి", ourCollection:"మా కలెక్షన్",
+    footerLine:"అందమైన కలెక్షన్లు. మధురమైన క్షణాలు. ❤️", whatsappUs:"☏ వాట్సాప్‌లో సంప్రదించండి",
+    all:"అన్ని వస్తువులు", emptyWishlist:"మీ ఇష్టమైన వస్తువులు ఇంకా లేవు. నచ్చిన వస్తువుపై ♡ నొక్కి సేవ్ చేసుకోండి.",
+    noProducts:"కొత్త వస్తువులు త్వరలో అందుబాటులోకి వస్తాయి. ✨", noImage:"చిత్రం లేదు", priceEnquiry:"ధర కోసం సంప్రదించండి",
+    enquire:"విచారించండి", itemSingular:"వస్తువు", itemPlural:"వస్తువులు", whatsappProduct:"నమస్కారం! నాకు {name} నచ్చింది. ఇది అందుబాటులో ఉందా?",
+    whatsappGeneral:"నమస్కారం హర్షిణి లేడీస్ ఎంపోరియం! మీ ఆభరణాల కలెక్షన్ల వివరాలు కావాలి."
+  }
+};
+const categoryTranslations = {
+  "All":"all", "Bangles":"catBangles", "Earrings":"catEarrings",
+  "Necklaces":"catNecklaces", "Bracelets":"catBracelets", "Other":"catOther"
+};
+translations.en.catBangles="Bangles"; translations.te.catBangles="గాజులు";
+translations.en.catEarrings="Earrings"; translations.te.catEarrings="చెవి దిద్దులు";
+translations.en.catNecklaces="Necklaces"; translations.te.catNecklaces="హారాలు";
+translations.en.catBracelets="Bracelets"; translations.te.catBracelets="బ్రేస్‌లెట్లు";
+translations.en.catOther="Other"; translations.te.catOther="ఇతరాలు";
+function tr(key) { return translations[currentLanguage][key] || translations.en[key] || key; }
+function categoryLabel(category) {
+  const key = categoryTranslations[category];
+  return key ? tr(key) : category;
+}
+function applyLanguage() {
+  document.documentElement.lang = currentLanguage === "te" ? "te" : "en";
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+    if (translations[currentLanguage][key]) el.innerHTML = translations[currentLanguage][key];
+  });
+  $("collectionTitle").textContent = wishlistOnly
+    ? (currentLanguage === "te" ? "మీ ఇష్టమైనవి" : "Your Wishlist")
+    : tr("ourCollection");
+  $("englishBtn").classList.toggle("active", currentLanguage === "en");
+  $("teluguBtn").classList.toggle("active", currentLanguage === "te");
+  $("englishBtn").setAttribute("aria-pressed", String(currentLanguage === "en"));
+  $("teluguBtn").setAttribute("aria-pressed", String(currentLanguage === "te"));
+  if (typeof renderProducts === "function") renderProducts();
+  updateWhatsApp();
+}
+function changeLanguage(language) {
+  if (language !== "en" && language !== "te") return;
+  currentLanguage = language;
+  localStorage.setItem("harshiniLanguage", language);
+  applyLanguage();
+}
+$("englishBtn").addEventListener("click", () => changeLanguage("en"));
+$("teluguBtn").addEventListener("click", () => changeLanguage("te"));
 
 function escapeHtml(value = "") {
-
-    return String(value).replace(/[&<>"']/g, ch => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-    }[ch]));
-
+  return String(value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
 }
-
-
 function showMessage(id, text, error = false) {
-
-    $(id).textContent = text;
-
-    $(id).style.color =
-        error ? "#b3264b" : "#6e5362";
-
+  $(id).textContent = text;
+  $(id).style.color = error ? "#b3264b" : "#6e5362";
 }
+function openModal(id) { $(id).classList.add("show"); }
+function closeModal(id) { $(id).classList.remove("show"); }
 
-
-function openModal(id) {
-    $(id).classList.add("show");
-}
-
-
-function closeModal(id) {
-    $(id).classList.remove("show");
-}
-
-
-document.querySelectorAll("[data-close]").forEach(btn => {
-
-    btn.addEventListener("click", () => {
-        closeModal(btn.dataset.close);
-    });
-
-});
-
-
-$("closeAdminBtn").addEventListener("click", () => {
-    closeModal("adminModal");
-});
-
-
-$("lightboxClose").addEventListener("click", () => {
-    closeModal("lightbox");
-});
-
-
-$("lightbox").addEventListener("click", e => {
-
-    if (e.target === $("lightbox")) {
-        closeModal("lightbox");
-    }
-
-});
-
+document.querySelectorAll("[data-close]").forEach(btn => btn.addEventListener("click", () => closeModal(btn.dataset.close)));
+$("closeAdminBtn").addEventListener("click", () => closeModal("adminModal"));
+$("lightboxClose").addEventListener("click", () => closeModal("lightbox"));
+$("lightbox").addEventListener("click", e => { if (e.target === $("lightbox")) closeModal("lightbox"); });
 
 function productImages(product) {
-
-    let urls = Array.isArray(product.image_urls)
-        ? product.image_urls.filter(Boolean)
-        : [];
-
-    if (!urls.length && product.image_url) {
-        urls = [product.image_url];
-    }
-
-    return [...new Set(urls)];
-
+  let urls = Array.isArray(product.image_urls) ? product.image_urls.filter(Boolean) : [];
+  if (!urls.length && product.image_url) urls = [product.image_url];
+  return [...new Set(urls)];
 }
-
-
 function productPaths(product) {
-
-    let paths = Array.isArray(product.image_paths)
-        ? product.image_paths.filter(Boolean)
-        : [];
-
-    if (!paths.length && product.image_path) {
-        paths = [product.image_path];
-    }
-
-    return paths;
-
+  let paths = Array.isArray(product.image_paths) ? product.image_paths.filter(Boolean) : [];
+  if (!paths.length && product.image_path) paths = [product.image_path];
+  return paths;
 }
-
-
 function saveWishlist() {
-
-    localStorage.setItem(
-        "harshiniWishlist",
-        JSON.stringify([...wishlist])
-    );
-
-    $("wishCount").textContent = wishlist.size;
-
+  localStorage.setItem("harshiniWishlist", JSON.stringify([...wishlist]));
+  $("wishCount").textContent = wishlist.size;
 }
-
-
 function whatsappLink(product) {
-
-    const text =
-        `Hello! I am interested in ${product.name}. Is it available?`;
-
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-
+  const text = tr("whatsappProduct").replace("{name}", product.name);
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
-
-
 function updateWhatsApp() {
-
-    const text =
-        "Hello Harshini Ladies Emporium! I would like to know about your jewellery collections.";
-
-    $("floatingWhatsApp").href =
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-
+  const text = tr("whatsappGeneral");
+  $("floatingWhatsApp").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
-
-
 updateWhatsApp();
-
 saveWishlist();
-
+applyLanguage();
 
 /* =========================
    CUSTOMER PRODUCT DISPLAY
 ========================= */
-
 function renderProducts() {
-
-    const categories = [
-        "All",
-        ...new Set(products.map(p => p.category).filter(Boolean))
-    ];
-
-    $("filters").innerHTML = categories.map(cat =>
-
-        `<button class="filter ${activeCategory === cat ? "active" : ""}"
-            data-cat="${escapeHtml(cat)}">
-            ${escapeHtml(cat)}
-        </button>`
-
-    ).join("");
-
-
-    $("filters").querySelectorAll("[data-cat]").forEach(btn => {
-
-        btn.addEventListener("click", () => {
-
-            activeCategory = btn.dataset.cat;
-
-            wishlistOnly = false;
-
-            $("collectionTitle").textContent = "Our Collection";
-
-            renderProducts();
-
-        });
-
-    });
-
-
-    let shown = activeCategory === "All"
-        ? [...products]
-        : products.filter(p => p.category === activeCategory);
-
-
-    if (wishlistOnly) {
-        shown = shown.filter(p => wishlist.has(String(p.id)));
-    }
-
-
-    $("countLabel").textContent =
-        `${shown.length} item${shown.length === 1 ? "" : "s"}`;
-
-
-    if (!shown.length) {
-
-        $("productGrid").innerHTML = `
-            <div class="empty">
-                ${wishlistOnly
-                    ? "Your wishlist is empty. Tap the ♡ on a product to save it."
-                    : "New arrivals coming soon. ✨"}
-            </div>`;
-
-        return;
-
-    }
-
-
-    $("productGrid").innerHTML = shown.map(product => {
-
-        const imgs = productImages(product);
-
-        const index = Math.min(
-            cardImageIndexes[product.id] || 0,
-            Math.max(0, imgs.length - 1)
-        );
-
-        const image = imgs[index] || "";
-
-        const wished = wishlist.has(String(product.id));
-
-        const price =
-            product.price !== null && product.price !== ""
-            ? "₹" + Number(product.price).toLocaleString("en-IN")
-            : "Price on enquiry";
-
-
-        return `
-
-        <article class="product"
-                 data-product="${escapeHtml(product.id)}">
-
-            <div class="product-image-wrap">
-
-                ${image
-                    ? `<img class="product-image"
-                            data-zoom="${escapeHtml(product.id)}"
-                            src="${escapeHtml(image)}"
-                            alt="${escapeHtml(product.name)}"
-                            loading="lazy">`
-                    : `<div class="empty">No image</div>`
-                }
-
-                <button class="wish-btn"
-                        data-wish="${escapeHtml(product.id)}"
-                        aria-label="Add to wishlist">
-                    ${wished ? "♥" : "♡"}
-                </button>
-
-                ${imgs.length > 1 ? `
-
-                    <button class="image-arrow prev"
-                            data-card-prev="${escapeHtml(product.id)}"
-                            aria-label="Previous photo">
-                        ‹
-                    </button>
-
-                    <button class="image-arrow next"
-                            data-card-next="${escapeHtml(product.id)}"
-                            aria-label="Next photo">
-                        ›
-                    </button>
-
-                    <span class="image-count">
-                        ${index + 1}/${imgs.length}
-                    </span>
-
-                ` : ""}
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>${escapeHtml(product.name)}</h3>
-
-                <p>
-                    ${escapeHtml(product.description || product.category || "")}
-                </p>
-
-                <div class="product-bottom">
-
-                    <span class="price">${price}</span>
-
-                    <a class="pill primary"
-                       href="${whatsappLink(product)}"
-                       target="_blank"
-                       rel="noopener">
-                        Enquire
-                    </a>
-
-                </div>
-
-            </div>
-
-        </article>
-
-        `;
-
-    }).join("");
-
-
-    $("productGrid").querySelectorAll("[data-wish]").forEach(btn => {
-
-        btn.addEventListener("click", () => {
-
-            const id = String(btn.dataset.wish);
-
-            wishlist.has(id)
-                ? wishlist.delete(id)
-                : wishlist.add(id);
-
-            saveWishlist();
-
-            renderProducts();
-
-        });
-
-    });
-
-
-    $("productGrid").querySelectorAll("[data-card-prev]").forEach(btn => {
-
-        btn.addEventListener("click", () => {
-
-            const id = btn.dataset.cardPrev;
-
-            const p = products.find(x => String(x.id) === id);
-
-            const n = productImages(p).length;
-
-            cardImageIndexes[id] =
-                ((cardImageIndexes[id] || 0) - 1 + n) % n;
-
-            renderProducts();
-
-        });
-
-    });
-
-
-    $("productGrid").querySelectorAll("[data-card-next]").forEach(btn => {
-
-        btn.addEventListener("click", () => {
-
-            const id = btn.dataset.cardNext;
-
-            const p = products.find(x => String(x.id) === id);
-
-            const n = productImages(p).length;
-
-            cardImageIndexes[id] =
-                ((cardImageIndexes[id] || 0) + 1) % n;
-
-            renderProducts();
-
-        });
-
-    });
-
-
-    $("productGrid").querySelectorAll("[data-zoom]").forEach(img => {
-
-        img.addEventListener("click", () => {
-
-            const p = products.find(
-                x => String(x.id) === img.dataset.zoom
-            );
-
-            openLightbox(
-                productImages(p),
-                cardImageIndexes[p.id] || 0
-            );
-
-        });
-
-    });
-
-}
-
-
-$("wishlistNav").addEventListener("click", () => {
-
-    wishlistOnly = !wishlistOnly;
-
-    activeCategory = "All";
-
-    $("collectionTitle").textContent =
-        wishlistOnly ? "Your Wishlist" : "Our Collection";
-
+  const categories = ["All", ...new Set(products.map(p => p.category).filter(Boolean))];
+  $("filters").innerHTML = categories.map(cat =>
+    `<button class="filter ${activeCategory === cat ? "active" : ""}" data-cat="${escapeHtml(cat)}">${escapeHtml(categoryLabel(cat))}</button>`
+  ).join("");
+  $("filters").querySelectorAll("[data-cat]").forEach(btn => btn.addEventListener("click", () => {
+    activeCategory = btn.dataset.cat;
+    wishlistOnly = false;
+    $("collectionTitle").textContent = wishlistOnly ? tr("wishlist") : tr("ourCollection");
     renderProducts();
+  }));
 
-    $("collections").scrollIntoView({
-        behavior: "smooth"
-    });
+  let shown = activeCategory === "All" ? [...products] : products.filter(p => p.category === activeCategory);
+  if (wishlistOnly) shown = shown.filter(p => wishlist.has(String(p.id)));
+  $("countLabel").textContent = `${shown.length} ${shown.length === 1 ? tr("itemSingular") : tr("itemPlural")}`;
 
+  if (!shown.length) {
+    $("productGrid").innerHTML = `<div class="empty">${wishlistOnly ? tr("emptyWishlist") : tr("noProducts")}</div>`;
+    return;
+  }
+
+  $("productGrid").innerHTML = shown.map(product => {
+    const imgs = productImages(product);
+    const index = Math.min(cardImageIndexes[product.id] || 0, Math.max(0, imgs.length - 1));
+    const image = imgs[index] || "";
+    const wished = wishlist.has(String(product.id));
+    const price = product.price !== null && product.price !== "" ? "₹" + Number(product.price).toLocaleString("en-IN") : tr("priceEnquiry");
+    return `<article class="product" data-product="${escapeHtml(product.id)}">
+      <div class="product-image-wrap">
+        ${image ? `<img class="product-image" data-zoom="${escapeHtml(product.id)}" src="${escapeHtml(image)}" alt="${escapeHtml(product.name)}" loading="lazy">` : `<div class="empty">${tr("noImage")}</div>`}
+        <button class="wish-btn" data-wish="${escapeHtml(product.id)}" aria-label="Add to wishlist">${wished ? "♥" : "♡"}</button>
+        ${imgs.length > 1 ? `<button class="image-arrow prev" data-card-prev="${escapeHtml(product.id)}" aria-label="Previous photo">‹</button><button class="image-arrow next" data-card-next="${escapeHtml(product.id)}" aria-label="Next photo">›</button><span class="image-count">${index + 1}/${imgs.length}</span>` : ""}
+      </div>
+      <div class="product-info">
+        <h3>${escapeHtml(product.name)}</h3>
+        <p>${escapeHtml(product.description || product.category || "")}</p>
+        <div class="product-bottom"><span class="price">${price}</span><a class="pill primary" href="${whatsappLink(product)}" target="_blank" rel="noopener">${tr("enquire")}</a></div>
+      </div>
+    </article>`;
+  }).join("");
+
+  $("productGrid").querySelectorAll("[data-wish]").forEach(btn => btn.addEventListener("click", () => {
+    const id = String(btn.dataset.wish);
+    wishlist.has(id) ? wishlist.delete(id) : wishlist.add(id);
+    saveWishlist();
+    renderProducts();
+  }));
+  $("productGrid").querySelectorAll("[data-card-prev]").forEach(btn => btn.addEventListener("click", () => {
+    const id = btn.dataset.cardPrev, p = products.find(x => String(x.id) === id), n = productImages(p).length;
+    cardImageIndexes[id] = ((cardImageIndexes[id] || 0) - 1 + n) % n; renderProducts();
+  }));
+  $("productGrid").querySelectorAll("[data-card-next]").forEach(btn => btn.addEventListener("click", () => {
+    const id = btn.dataset.cardNext, p = products.find(x => String(x.id) === id), n = productImages(p).length;
+    cardImageIndexes[id] = ((cardImageIndexes[id] || 0) + 1) % n; renderProducts();
+  }));
+  $("productGrid").querySelectorAll("[data-zoom]").forEach(img => img.addEventListener("click", () => {
+    const p = products.find(x => String(x.id) === img.dataset.zoom);
+    openLightbox(productImages(p), cardImageIndexes[p.id] || 0);
+  }));
+}
+$("wishlistNav").addEventListener("click", () => {
+  wishlistOnly = !wishlistOnly;
+  activeCategory = "All";
+  $("collectionTitle").textContent = wishlistOnly ? (currentLanguage === "te" ? "మీ ఇష్టమైనవి" : "Your Wishlist") : tr("ourCollection");
+  renderProducts();
+  $("collections").scrollIntoView({behavior:"smooth"});
 });
-
 
 /* =========================
    LIGHTBOX / IMAGE ZOOM
 ========================= */
-
 function openLightbox(images, index = 0) {
-
-    lightboxImages = images || [];
-
-    lightboxIndex = index;
-
-    if (!lightboxImages.length) return;
-
-    updateLightbox();
-
-    openModal("lightbox");
-
+  lightboxImages = images || [];
+  lightboxIndex = index;
+  if (!lightboxImages.length) return;
+  updateLightbox();
+  openModal("lightbox");
 }
-
-
 function updateLightbox() {
-
-    $("lightboxImage").src =
-        lightboxImages[lightboxIndex];
-
-    const multiple = lightboxImages.length > 1;
-
-    $("lightboxPrev").style.display =
-        multiple ? "block" : "none";
-
-    $("lightboxNext").style.display =
-        multiple ? "block" : "none";
-
+  $("lightboxImage").src = lightboxImages[lightboxIndex];
+  const multiple = lightboxImages.length > 1;
+  $("lightboxPrev").style.display = multiple ? "block" : "none";
+  $("lightboxNext").style.display = multiple ? "block" : "none";
 }
-
-
-$("lightboxPrev").addEventListener("click", () => {
-
-    lightboxIndex =
-        (lightboxIndex - 1 + lightboxImages.length)
-        % lightboxImages.length;
-
-    updateLightbox();
-
-});
-
-
-$("lightboxNext").addEventListener("click", () => {
-
-    lightboxIndex =
-        (lightboxIndex + 1) % lightboxImages.length;
-
-    updateLightbox();
-
-});
-
-
+$("lightboxPrev").addEventListener("click", () => { lightboxIndex = (lightboxIndex - 1 + lightboxImages.length) % lightboxImages.length; updateLightbox(); });
+$("lightboxNext").addEventListener("click", () => { lightboxIndex = (lightboxIndex + 1) % lightboxImages.length; updateLightbox(); });
 document.addEventListener("keydown", e => {
-
-    if (!$("lightbox").classList.contains("show")) return;
-
-    if (e.key === "Escape") {
-        closeModal("lightbox");
-    }
-
-    if (e.key === "ArrowLeft") {
-        $("lightboxPrev").click();
-    }
-
-    if (e.key === "ArrowRight") {
-        $("lightboxNext").click();
-    }
-
+  if (!$("lightbox").classList.contains("show")) return;
+  if (e.key === "Escape") closeModal("lightbox");
+  if (e.key === "ArrowLeft") $("lightboxPrev").click();
+  if (e.key === "ArrowRight") $("lightboxNext").click();
 });
-
 
 /* =========================
    SUPABASE AUTHENTICATION
 ========================= */
-
 $("adminOpen").addEventListener("click", async () => {
-
-    const { data, error } = await db.auth.getSession();
-
-    if (error) return alert(error.message);
-
-    if (
-        data.session &&
-        data.session.user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase()
-    ) {
-
-        currentUser = data.session.user;
-
-        await openAdmin();
-
-    } else {
-
-        openModal("loginModal");
-
-    }
-
-});
-
-
-$("loginForm").addEventListener("submit", async event => {
-
-    event.preventDefault();
-
-    showMessage("loginMessage", "Checking login...");
-
-    const email = $("loginEmail").value.trim();
-
-    const password = $("loginPassword").value;
-
-
-    if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-
-        showMessage(
-            "loginMessage",
-            "This email is not authorised for admin access.",
-            true
-        );
-
-        return;
-
-    }
-
-
-    const { data, error } =
-        await db.auth.signInWithPassword({
-            email,
-            password
-        });
-
-
-    if (error) {
-
-        return showMessage(
-            "loginMessage",
-            error.message,
-            true
-        );
-
-    }
-
-
-    currentUser = data.user;
-
-
-    if (
-        currentUser.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()
-    ) {
-
-        await db.auth.signOut();
-
-        currentUser = null;
-
-        return showMessage(
-            "loginMessage",
-            "This account is not authorised.",
-            true
-        );
-
-    }
-
-
-    closeModal("loginModal");
-
-    $("loginForm").reset();
-
+  const {data, error} = await db.auth.getSession();
+  if (error) return alert(error.message);
+  if (data.session && data.session.user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+    currentUser = data.session.user;
     await openAdmin();
-
+  } else {
+    openModal("loginModal");
+  }
 });
-
-
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  showMessage("loginMessage", "Checking login...");
+  const email = $("loginEmail").value.trim();
+  const password = $("loginPassword").value;
+  if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    showMessage("loginMessage", "This email is not authorised for admin access.", true);
+    return;
+  }
+  const {data, error} = await db.auth.signInWithPassword({email, password});
+  if (error) return showMessage("loginMessage", error.message, true);
+  currentUser = data.user;
+  if (currentUser.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    await db.auth.signOut(); currentUser = null;
+    return showMessage("loginMessage", "This account is not authorised.", true);
+  }
+  closeModal("loginModal");
+  $("loginForm").reset();
+  await openAdmin();
+});
 $("logoutBtn").addEventListener("click", async () => {
-
-    const { error } = await db.auth.signOut();
-
-    if (error) return alert(error.message);
-
-    currentUser = null;
-
-    closeModal("adminModal");
-
-    resetProductForm();
-
+  const {error} = await db.auth.signOut();
+  if (error) return alert(error.message);
+  currentUser = null;
+  closeModal("adminModal");
+  resetProductForm();
 });
-
 
 /* =========================
    LOAD AND RENDER PRODUCTS
 ========================= */
-
 async function loadProducts() {
-
-    const { data, error } = await db
-        .from(TABLE)
-        .select("*")
-        .order("created_at", { ascending: false });
-
-
-    if (error) {
-
-        console.error(error);
-
-        $("productGrid").innerHTML = `
-            <div class="empty">
-                Unable to load products.
-                Check your Supabase table, permissions and connection.
-                <br>
-                <small>${escapeHtml(error.message)}</small>
-            </div>`;
-
-        return;
-
-    }
-
-
-    products = data || [];
-
-    renderProducts();
-
-    if (currentUser) {
-        renderAdminList();
-    }
-
+  const {data, error} = await db.from(TABLE).select("*").order("created_at", {ascending:false});
+  if (error) {
+    console.error(error);
+    $("productGrid").innerHTML = `<div class="empty">Unable to load products. Check your Supabase table, permissions and connection.<br><small>${escapeHtml(error.message)}</small></div>`;
+    return;
+  }
+  products = data || [];
+  renderProducts();
+  if (currentUser) renderAdminList();
 }
-
-
 async function openAdmin() {
-
-    if (
-        !currentUser ||
-        currentUser.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()
-    ) {
-
-        alert("Admin authentication required.");
-
-        return;
-
-    }
-
-    openModal("adminModal");
-
-    await loadProducts();
-
-    renderAdminList();
-
+  if (!currentUser || currentUser.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    alert("Admin authentication required."); return;
+  }
+  openModal("adminModal");
+  await loadProducts();
+  renderAdminList();
 }
-
 
 /* =========================
    MULTI-PHOTO PICKER
 ========================= */
-
 function addSelectedFiles(fileList) {
-
-    const incoming = [...(fileList || [])];
-
-
-    for (const file of incoming) {
-
-        if (!file.type.startsWith("image/")) {
-
-            showMessage(
-                "saveMessage",
-                `${file.name} is not an image.`,
-                true
-            );
-
-            continue;
-
-        }
-
-
-        if (file.size > MAX_FILE_SIZE) {
-
-            showMessage(
-                "saveMessage",
-                `${file.name} is larger than 12 MB.`,
-                true
-            );
-
-            continue;
-
-        }
-
-
-        if (selectedFiles.length >= MAX_PHOTOS) {
-
-            showMessage(
-                "saveMessage",
-                `You can add up to ${MAX_PHOTOS} photos per product.`,
-                true
-            );
-
-            break;
-
-        }
-
-
-        selectedFiles.push(file);
-
+  const incoming = [...(fileList || [])];
+  for (const file of incoming) {
+    if (!file.type.startsWith("image/")) {
+      showMessage("saveMessage", `${file.name} is not an image.`, true); continue;
     }
-
-
-    renderPhotoPreviews();
-
-    $("cameraInput").value = "";
-
-    $("galleryInput").value = "";
-
+    if (file.size > MAX_FILE_SIZE) {
+      showMessage("saveMessage", `${file.name} is larger than 12 MB.`, true); continue;
+    }
+    if (selectedFiles.length >= MAX_PHOTOS) {
+      showMessage("saveMessage", `You can add up to ${MAX_PHOTOS} photos per product.`, true); break;
+    }
+    selectedFiles.push(file);
+  }
+  renderPhotoPreviews();
+  $("cameraInput").value = "";
+  $("galleryInput").value = "";
 }
-
-
 function renderPhotoPreviews() {
-
-    $("photoPreviews").innerHTML =
-        selectedFiles.map((file, i) => {
-
-            const url = URL.createObjectURL(file);
-
-            return `
-                <div class="preview-item">
-
-                    <img src="${url}" alt="Selected photo ${i + 1}">
-
-                    <button type="button"
-                            data-remove-photo="${i}"
-                            aria-label="Remove photo">
-                        ×
-                    </button>
-
-                </div>
-            `;
-
-        }).join("");
-
-
-    $("photoPreviews")
-        .querySelectorAll("[data-remove-photo]")
-        .forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                selectedFiles.splice(
-                    Number(btn.dataset.removePhoto),
-                    1
-                );
-
-                renderPhotoPreviews();
-
-            });
-
-        });
-
-
-    $("photoHelp").textContent = selectedFiles.length
-        ? `${selectedFiles.length} new photo(s) selected. These will replace the current photo gallery when you save.`
-        : "No new photos selected. When editing, the current photos will be kept unless you select replacement photos.";
-
+  $("photoPreviews").innerHTML = selectedFiles.map((file, i) => {
+    const url = URL.createObjectURL(file);
+    return `<div class="preview-item"><img src="${url}" alt="Selected photo ${i+1}"><button type="button" data-remove-photo="${i}" aria-label="Remove photo">×</button></div>`;
+  }).join("");
+  $("photoPreviews").querySelectorAll("[data-remove-photo]").forEach(btn => btn.addEventListener("click", () => {
+    selectedFiles.splice(Number(btn.dataset.removePhoto), 1); renderPhotoPreviews();
+  }));
+  $("photoHelp").textContent = selectedFiles.length ? `${selectedFiles.length} new photo(s) selected. These will replace the current photo gallery when you save.` : "No new photos selected. When editing, the current photos will be kept unless you select replacement photos.";
 }
-
-
-$("cameraInput").addEventListener("change", e => {
-    addSelectedFiles(e.target.files);
-});
-
-
-$("galleryInput").addEventListener("change", e => {
-    addSelectedFiles(e.target.files);
-});
-
+$("cameraInput").addEventListener("change", e => addSelectedFiles(e.target.files));
+$("galleryInput").addEventListener("change", e => addSelectedFiles(e.target.files));
 
 function resetProductForm() {
-
-    $("productForm").reset();
-
-    $("productId").value = "";
-
-    selectedFiles = [];
-
-    $("photoPreviews").innerHTML = "";
-
-    $("photoHelp").textContent =
-        "No new photos selected. When editing, the current photos will be kept unless you select replacement photos.";
-
-    $("saveProductBtn").textContent = "Save Product";
-
-    $("saveProductBtn").disabled = false;
-
-    showMessage("saveMessage", "");
-
+  $("productForm").reset();
+  $("productId").value = "";
+  selectedFiles = [];
+  $("photoPreviews").innerHTML = "";
+  $("photoHelp").textContent = "No new photos selected. When editing, the current photos will be kept unless you select replacement photos.";
+  $("saveProductBtn").textContent = "Save Product";
+  $("saveProductBtn").disabled = false;
+  showMessage("saveMessage", "");
 }
-
-
 $("resetForm").addEventListener("click", resetProductForm);
-
 
 /* =========================
    STORAGE UPLOAD / CLEANUP
 ========================= */
-
 async function uploadPhoto(file) {
-
-    const ext =
-        (file.name.split(".").pop() || "jpg")
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "") || "jpg";
-
-
-    const path =
-        `${Date.now()}-${crypto.randomUUID()}.${ext}`;
-
-
-    const { error } = await db.storage
-        .from(BUCKET)
-        .upload(path, file, {
-            cacheControl: "3600",
-            upsert: false,
-            contentType: file.type
-        });
-
-
-    if (error) throw error;
-
-
-    const { data } = db.storage
-        .from(BUCKET)
-        .getPublicUrl(path);
-
-
-    return {
-        path,
-        url: data.publicUrl
-    };
-
+  const ext = (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";
+  const path = `${Date.now()}-${crypto.randomUUID()}.${ext}`;
+  const {error} = await db.storage.from(BUCKET).upload(path, file, {
+    cacheControl:"3600", upsert:false, contentType:file.type
+  });
+  if (error) throw error;
+  const {data} = db.storage.from(BUCKET).getPublicUrl(path);
+  return {path, url:data.publicUrl};
 }
-
-
 async function removeStorageFiles(paths) {
-
-    const unique = [
-        ...new Set((paths || []).filter(Boolean))
-    ];
-
-    if (!unique.length) return;
-
-
-    const { error } = await db.storage
-        .from(BUCKET)
-        .remove(unique);
-
-
-    if (error) {
-        console.warn("Storage cleanup failed:", error.message);
-    }
-
+  const unique = [...new Set((paths || []).filter(Boolean))];
+  if (!unique.length) return;
+  const {error} = await db.storage.from(BUCKET).remove(unique);
+  if (error) console.warn("Storage cleanup failed:", error.message);
 }
-
 
 /* =========================
    SAVE / UPDATE PRODUCT
 ========================= */
-
 $("productForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!currentUser || currentUser.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    showMessage("saveMessage", "Please sign in using the authorised admin account.", true); return;
+  }
+  const id = $("productId").value;
+  const oldProduct = products.find(p => String(p.id) === String(id));
+  $("saveProductBtn").disabled = true;
+  showMessage("saveMessage", "Saving product and uploading photos...");
+  let newlyUploaded = [];
+  try {
+    let imageUrls = oldProduct ? productImages(oldProduct) : [];
+    let imagePaths = oldProduct ? productPaths(oldProduct) : [];
 
-    event.preventDefault();
-
-
-    if (
-        !currentUser ||
-        currentUser.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()
-    ) {
-
-        showMessage(
-            "saveMessage",
-            "Please sign in using the authorised admin account.",
-            true
-        );
-
-        return;
-
+    if (selectedFiles.length) {
+      for (const file of selectedFiles) {
+        const uploaded = await uploadPhoto(file);
+        newlyUploaded.push(uploaded);
+      }
+      imageUrls = newlyUploaded.map(x => x.url);
+      imagePaths = newlyUploaded.map(x => x.path);
     }
-
-
-    const id = $("productId").value;
-
-    const oldProduct = products.find(
-        p => String(p.id) === String(id)
-    );
-
-
-    $("saveProductBtn").disabled = true;
-
-    showMessage(
-        "saveMessage",
-        "Saving product and uploading photos..."
-    );
-
-
-    let newlyUploaded = [];
-
-
-    try {
-
-        let imageUrls = oldProduct
-            ? productImages(oldProduct)
-            : [];
-
-        let imagePaths = oldProduct
-            ? productPaths(oldProduct)
-            : [];
-
-
-        if (selectedFiles.length) {
-
-            for (const file of selectedFiles) {
-
-                const uploaded = await uploadPhoto(file);
-
-                newlyUploaded.push(uploaded);
-
-            }
-
-            imageUrls = newlyUploaded.map(x => x.url);
-
-            imagePaths = newlyUploaded.map(x => x.path);
-
-        }
-
-
-        if (!imageUrls.length) {
-
-            throw new Error(
-                "Please take a photo or choose at least one image."
-            );
-
-        }
-
-
-        const payload = {
-
-            name: $("pName").value.trim(),
-
-            category: $("pCategory").value,
-
-            price: $("pPrice").value
-                ? Number($("pPrice").value)
-                : null,
-
-            description: $("pDescription").value.trim(),
-
-            image_url: imageUrls[0],
-
-            image_path: imagePaths[0] || null,
-
-            image_urls: imageUrls,
-
-            image_paths: imagePaths
-
-        };
-
-
-        let result;
-
-
-        if (id) {
-
-            result = await db
-                .from(TABLE)
-                .update(payload)
-                .eq("id", id);
-
-        } else {
-
-            result = await db
-                .from(TABLE)
-                .insert(payload);
-
-        }
-
-
-        if (result.error) {
-            throw result.error;
-        }
-
-
-        // Remove old gallery only after the database update succeeds.
-
-        if (id && selectedFiles.length && oldProduct) {
-
-            await removeStorageFiles(
-                productPaths(oldProduct)
-            );
-
-        }
-
-
-        showMessage(
-            "saveMessage",
-            "Product saved successfully! ❤️"
-        );
-
-
-        resetProductForm();
-
-        await loadProducts();
-
-
-    } catch (error) {
-
-        // Remove uploaded files if database save fails.
-
-        if (newlyUploaded.length) {
-
-            await removeStorageFiles(
-                newlyUploaded.map(x => x.path)
-            );
-
-        }
-
-
-        console.error(error);
-
-        showMessage(
-            "saveMessage",
-            error.message || "Unable to save product.",
-            true
-        );
-
-
-    } finally {
-
-        $("saveProductBtn").disabled = false;
-
-    }
-
+    if (!imageUrls.length) throw new Error("Please take a photo or choose at least one image.");
+
+    const payload = {
+      name:$("pName").value.trim(),
+      category:$("pCategory").value,
+      price:$("pPrice").value ? Number($("pPrice").value) : null,
+      description:$("pDescription").value.trim(),
+      image_url:imageUrls[0],
+      image_path:imagePaths[0] || null,
+      image_urls:imageUrls,
+      image_paths:imagePaths
+    };
+    let result;
+    if (id) result = await db.from(TABLE).update(payload).eq("id", id);
+    else result = await db.from(TABLE).insert(payload);
+    if (result.error) throw result.error;
+
+    // Only remove the previous gallery after the database update succeeds.
+    if (id && selectedFiles.length && oldProduct) await removeStorageFiles(productPaths(oldProduct));
+    showMessage("saveMessage", "Product saved successfully! ❤️");
+    resetProductForm();
+    await loadProducts();
+  } catch (error) {
+    // Avoid leaving uploaded but unreferenced files in Storage if saving fails.
+    if (newlyUploaded.length) await removeStorageFiles(newlyUploaded.map(x => x.path));
+    console.error(error);
+    showMessage("saveMessage", error.message || "Unable to save product.", true);
+  } finally {
+    $("saveProductBtn").disabled = false;
+  }
 });
-
 
 /* =========================
    ADMIN PRODUCT LIST / EDIT
 ========================= */
-
 function renderAdminList() {
-
-    if (!products.length) {
-
-        $("adminList").innerHTML =
-            `<p class="small">No products added yet.</p>`;
-
-        return;
-
-    }
-
-
-    $("adminList").innerHTML = products.map(p => {
-
-        const imgs = productImages(p);
-
-        return `
-
-        <div class="admin-row">
-
-            <img src="${escapeHtml(imgs[0] || "")}"
-                 alt="${escapeHtml(p.name)}">
-
-            <div class="grow">
-
-                <b>${escapeHtml(p.name)}</b>
-
-                <div class="small">
-
-                    ${escapeHtml(p.category || "")}
-
-                    · ${imgs.length} photo(s)
-
-                    · ${
-                        p.price !== null && p.price !== ""
-                        ? "₹" + Number(p.price).toLocaleString("en-IN")
-                        : "No price"
-                    }
-
-                </div>
-
-            </div>
-
-            <button class="pill"
-                    data-edit="${escapeHtml(p.id)}">
-                Edit
-            </button>
-
-            <button class="pill"
-                    data-delete="${escapeHtml(p.id)}">
-                Delete
-            </button>
-
-        </div>
-
-        `;
-
-    }).join("");
-
-
-    $("adminList")
-        .querySelectorAll("[data-edit]")
-        .forEach(btn => {
-
-            btn.addEventListener("click", () => {
-                editProduct(btn.dataset.edit);
-            });
-
-        });
-
-
-    $("adminList")
-        .querySelectorAll("[data-delete]")
-        .forEach(btn => {
-
-            btn.addEventListener("click", () => {
-                deleteProduct(btn.dataset.delete);
-            });
-
-        });
-
+  if (!products.length) {
+    $("adminList").innerHTML = `<p class="small">No products added yet.</p>`; return;
+  }
+  $("adminList").innerHTML = products.map(p => {
+    const imgs = productImages(p);
+    return `<div class="admin-row">
+      <img src="${escapeHtml(imgs[0] || "")}" alt="${escapeHtml(p.name)}">
+      <div class="grow"><b>${escapeHtml(p.name)}</b><div class="small">${escapeHtml(p.category || "")} · ${imgs.length} photo(s) · ${p.price !== null && p.price !== "" ? "₹"+Number(p.price).toLocaleString("en-IN") : "No price"}</div></div>
+      <button class="pill" data-edit="${escapeHtml(p.id)}">Edit</button>
+      <button class="pill" data-delete="${escapeHtml(p.id)}">Delete</button>
+    </div>`;
+  }).join("");
+  $("adminList").querySelectorAll("[data-edit]").forEach(btn => btn.addEventListener("click", () => editProduct(btn.dataset.edit)));
+  $("adminList").querySelectorAll("[data-delete]").forEach(btn => btn.addEventListener("click", () => deleteProduct(btn.dataset.delete)));
 }
-
-
 function editProduct(id) {
-
-    const p = products.find(
-        item => String(item.id) === String(id)
-    );
-
-    if (!p) return;
-
-
-    $("productId").value = p.id;
-
-    $("pName").value = p.name || "";
-
-    $("pCategory").value = p.category || "Other";
-
-    $("pPrice").value = p.price ?? "";
-
-    $("pDescription").value = p.description || "";
-
-
-    selectedFiles = [];
-
-    renderPhotoPreviews();
-
-
-    const existing = productImages(p);
-
-
-    $("photoHelp").textContent =
-        `This product currently has ${existing.length} photo(s). Select new photos only if you want to replace the entire gallery.`;
-
-
-    $("saveProductBtn").textContent = "Update Product";
-
-
-    showMessage(
-        "saveMessage",
-        "Editing product. Existing photos will remain unless you select new photos."
-    );
-
-
-    $("productForm").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
-
+  const p = products.find(item => String(item.id) === String(id));
+  if (!p) return;
+  $("productId").value = p.id;
+  $("pName").value = p.name || "";
+  $("pCategory").value = p.category || "Other";
+  $("pPrice").value = p.price ?? "";
+  $("pDescription").value = p.description || "";
+  selectedFiles = [];
+  renderPhotoPreviews();
+  const existing = productImages(p);
+  $("photoHelp").textContent = `This product currently has ${existing.length} photo(s). Select new photos only if you want to replace the entire gallery.`;
+  $("saveProductBtn").textContent = "Update Product";
+  showMessage("saveMessage", "Editing product. Existing photos will remain unless you select new photos.");
+  $("productForm").scrollIntoView({behavior:"smooth", block:"start"});
 }
-
-
 async function deleteProduct(id) {
-
-    const p = products.find(
-        item => String(item.id) === String(id)
-    );
-
-    if (!p || !confirm(`Are you sure you want to delete ${p.name}?`)) {
-        return;
-    }
-
-
-    const { error } = await db
-        .from(TABLE)
-        .delete()
-        .eq("id", id);
-
-
-    if (error) {
-
-        return alert(
-            "Unable to delete product: " + error.message
-        );
-
-    }
-
-
-    await removeStorageFiles(
-        productPaths(p)
-    );
-
-
-    wishlist.delete(String(id));
-
-    saveWishlist();
-
-    await loadProducts();
-
-    resetProductForm();
-
-    alert("Product deleted successfully.");
-
+  const p = products.find(item => String(item.id) === String(id));
+  if (!p || !confirm(`Are you sure you want to delete ${p.name}?`)) return;
+  const {error} = await db.from(TABLE).delete().eq("id", id);
+  if (error) return alert("Unable to delete product: " + error.message);
+  await removeStorageFiles(productPaths(p));
+  wishlist.delete(String(id)); saveWishlist();
+  await loadProducts();
+  resetProductForm();
+  alert("Product deleted successfully.");
 }
-
 
 /* =========================
    AUTH SESSION + STARTUP
 ========================= */
-
 async function checkSession() {
-
-    const { data, error } = await db.auth.getSession();
-
-    if (error) {
-        console.error(error);
-        return;
-    }
-
-
-    currentUser = data.session?.user || null;
-
-
-    if (
-        currentUser &&
-        currentUser.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()
-    ) {
-
-        await db.auth.signOut();
-
-        currentUser = null;
-
-    }
-
+  const {data, error} = await db.auth.getSession();
+  if (error) { console.error(error); return; }
+  currentUser = data.session?.user || null;
+  if (currentUser && currentUser.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    await db.auth.signOut(); currentUser = null;
+  }
 }
-
-
 db.auth.onAuthStateChange((event, session) => {
-
-    currentUser = session?.user || null;
-
-
-    if (
-        currentUser &&
-        currentUser.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()
-    ) {
-
-        db.auth.signOut();
-
-        currentUser = null;
-
-    }
-
+  currentUser = session?.user || null;
+  if (currentUser && currentUser.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    db.auth.signOut(); currentUser = null;
+  }
 });
-
-
 async function startWebsite() {
-
-    await checkSession();
-
-    await loadProducts();
-
+  await checkSession();
+  await loadProducts();
 }
-
-
 startWebsite();
-
 </script>
-
 </body>
 </html>
